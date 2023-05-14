@@ -1,0 +1,15 @@
+/*
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+*/
+.wrapper {
+  width: 100%;
+  @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
+  @include ltr-rtl("padding-right", var(--cui-sidebar-occupy-end, 0));
+  will-change: auto;
+  @include transition(padding .15s);
+}

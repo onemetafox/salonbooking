@@ -1,0 +1,106 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="card-header"
+                        style="margin: 10px 0px; border: none;text-transform: uppercase; font-weight: bold;">
+                        {{util.translate('Referral Details')}} :
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="help">
+                                {{util.translate('This information will be used as referral system. in order to disable
+                                the referral system. please choose status to deactive.')}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>{{util.translate('Referral Title')}} : <span style="color: red;">*</span>
+                                </label>
+                                <input type="text" class="form-control" [class]="submited && title =='' ? 'req':''"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="title"
+                                    [placeholder]="util.translate('Referral Title')">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>{{util.translate('Referral Message')}} : <span style="color: red;">*</span>
+                                </label>
+                                <textarea type="text" class="form-control" rows="5"
+                                    [class]="submited && message =='' ? 'req':''" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="message" [placeholder]="util.translate('Referral Message')"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Amount')}} : <span style="color: red;">*</span>
+                                </label>
+                                <input type="number" class="form-control" [class]="submited && amount =='' ? 'req':''"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="amount"
+                                    [placeholder]="util.translate('Amount')">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Limit')}} : <span style="color: red;">*</span>
+                                </label>
+                                <input type="number" class="form-control" [class]="submited && limit =='' ? 'req':''"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="limit"
+                                    [placeholder]="util.translate('Limit')">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Who Received')}} : <span style="color: red;">*</span>
+                                </label>
+                                <select id="select2" [(ngModel)]="who_received"
+                                    [class]="submited && who_received =='' ? 'req':''" name="select2"
+                                    class="form-control form-control">
+                                    <option [value]="1"> {{util.translate('Invitee')} </option>
+                                    <option [value]="2"> {{util.translate('Who Redeem')}} </option>
+                                    <option [value]="3"> {{util.translate('Both Invitee & Who Redeem')}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Status')}} : <span style="color: red;">*</span>
+                                </label>
+                                <select id="select2" [(ngModel)]="status" [class]="submited && status =='' ? 'req':''"
+                                    name="select2" class="form-control form-control">
+                                    <option [value]="1"> {{util.translate('Active')}} </option>
+                                    <option [value]="0"> {{util.translate('Deactive')}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button type="button" class="btn btn-success" *ngIf="!edit" (click)="create()">
+                        {{util.translate('Create Referral Program')}}
+                    </button>
+                    <button type="button" class="btn btn btn-primary" *ngIf="edit" (click)="update()">
+                        {{util.translate('Update Referral Program')}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

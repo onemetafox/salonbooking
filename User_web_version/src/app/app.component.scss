@@ -1,0 +1,276 @@
+/*
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+*/
+.main_content_div {
+  width: 100%;
+  padding: 15px;
+
+  .back_image {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: 45px;
+  }
+
+  .left_div {
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+
+    .inner_div {
+      width: 70%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+
+    .msg_div {
+      background: #f0eff5;
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      border-radius: 25px;
+      margin-left: 5px;
+    }
+  }
+
+  .right_div {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+    justify-content: flex-end;
+
+    .inner_div {
+      width: 70%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+
+    .msg_div {
+      background-color: #45c261 !important;
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      border-radius: 25px;
+      margin-right: 5px;
+      color: white;
+    }
+  }
+}
+
+.signIn_body {
+  padding: 40px;
+
+  label {
+    display: block;
+    margin: 0;
+  }
+
+  .close_icn {
+    font-size: 30px;
+  }
+
+  .header_div {
+    position: relative;
+
+    .head_lbl {
+      margin-top: 25px;
+      font-size: 30px;
+      font-weight: 500;
+    }
+
+    .subhead_lbl {
+      font-size: 14px;
+
+      span {
+        color: #fc8019;
+      }
+    }
+
+    .abs_img {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100px;
+    }
+  }
+
+  .register_div {
+    margin-top: 20px;
+
+    .reg_title {
+      color: #7e808c;
+      font-size: 15px;
+      margin-bottom: 16px;
+
+      span {
+        color: #0b19df;
+      }
+    }
+
+    input {
+      height: 65px !important;
+      border-top: 0px;
+    }
+
+    .reff_lbl {
+      margin-top: 25px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #5d8ed5;
+      cursor: pointer;
+    }
+
+    .btn {
+      width: 100%;
+      box-shadow: none;
+      background: #0b19df;
+      font-weight: bold;
+      height: 50px;
+      font-size: 14px;
+      color: white;
+      margin: 0;
+      margin-top: 20px;
+    }
+
+    .terms_lbl {
+      font-size: 12px;
+      color: #7e808c;
+      margin-top: 6px;
+
+      span {
+        color: #5d8ed5;
+      }
+    }
+  }
+}
+
+.location_body {
+  padding: 20px;
+
+  label {
+    display: block;
+  }
+
+  .frg {
+    text-align: right;
+    cursor: pointer;
+  }
+
+  .creatAc {
+    text-align: right;
+    cursor: pointer;
+
+    .colored {
+      color: #0b19df;
+    }
+  }
+
+  .subTitleText {
+    text-align: center;
+    font-weight: bold;
+    color: gray;
+    font-size: 1rem;
+  }
+
+  .otpInput {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  .form_div {
+    margin-top: 20px;
+
+    .frm {
+      margin: 10px 0px;
+    }
+
+    .redAlert {
+      color: red;
+    }
+
+    .langs {
+      padding: 5px 10px;
+      text-align: center;
+    }
+
+    .app_btns {
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      align-items: center;
+
+      label {
+        margin: 0px;
+        margin-left: 10px;
+      }
+    }
+
+    .addressList {
+      background: white;
+      box-shadow: 0px 1px 9px grey;
+
+      .select_addr {
+        display: flex;
+        flex-direction: row;
+        margin: 10px;
+        border-bottom: 1px dashed lightgray;
+        align-items: center;
+        padding: 5px;
+        z-index: 9999;
+        overflow: visible;
+      }
+    }
+
+    input {
+      font-weight: 600;
+    }
+
+    ::placeholder {
+      color: #a9abb2;
+      opacity: 1;
+    }
+
+    .icn_img {
+      width: 20px;
+    }
+
+    .bold_lbl {
+      font-size: 16px;
+      font-weight: 500;
+      color: #282c3f;
+    }
+
+    .bold_lbl:hover {
+      color: #fc8019;
+    }
+
+    .grey_lbl {
+      font-size: 13px;
+      color: #93959f;
+      line-height: 1.3;
+    }
+
+    .location_box {
+      border: 1px solid lightgrey;
+      display: flex;
+      padding: 16px;
+      margin-top: 20px;
+    }
+  }
+}
+
+.spacer {
+  margin-top: 80px;
+}

@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "1022022823127",
+    "project_id": "ultimate-salon-flutter",
+    "storage_bucket": "ultimate-salon-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022022823127:android:2a4c007646e78c1df3d492",
+        "android_client_info": {
+          "package_name": "io.initappz.ultimate.salon.owner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022022823127-nthqqk7f0hp5i0lmthvobelum5ou7phe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbQPu7NP8F-rSsXIsSvbVIb8UQ0zVSUEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022022823127-nthqqk7f0hp5i0lmthvobelum5ou7phe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1022022823127-fchj97baoac3hp1fv77oapku1tgjbvds.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.initappz.ultimate.salon.owner"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022022823127:android:6d692ddf8e49dc33f3d492",
+        "android_client_info": {
+          "package_name": "io.initappz.ultimate.salon.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022022823127-nthqqk7f0hp5i0lmthvobelum5ou7phe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbQPu7NP8F-rSsXIsSvbVIb8UQ0zVSUEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022022823127-nthqqk7f0hp5i0lmthvobelum5ou7phe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1022022823127-fchj97baoac3hp1fv77oapku1tgjbvds.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.initappz.ultimate.salon.owner"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

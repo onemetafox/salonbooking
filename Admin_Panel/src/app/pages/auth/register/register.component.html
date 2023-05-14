@@ -1,0 +1,83 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="7" md="9" xl="6">
+        <c-card class="mx-4">
+          <c-card-body class="p-4">
+            <form cForm>
+              <h1>{{util.translate('Register')}}</h1>
+              <p class="text-medium-emphasis">{{util.translate('Create your account')}}</p>
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilUser"></svg>
+                </span>
+                <input cFormControl [placeholder]="util.translate('First Name')"
+                  [class]="submited== true && first_name =='' ?'validator_error':''" [(ngModel)]="first_name"
+                  [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilUser"></svg>
+                </span>
+                <input cFormControl [placeholder]="util.translate('Last Name')" [(ngModel)]="last_name"
+                  [class]="submited== true && last_name =='' ?'validator_error':''"
+                  [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+              <div class="row">
+                <div class="col-md-3">
+                  <c-input-group class="mb-3">
+                    <input cFormControl placeholder="+1" [(ngModel)]="country_code"
+                      [class]="submited== true && country_code =='' ?'validator_error':''"
+                      [ngModelOptions]="{standalone: true}" />
+                  </c-input-group>
+                </div>
+                <div class="col-md-9">
+                  <c-input-group class="mb-3">
+                    <input cFormControl [placeholder]="util.translate('Phone Number')" [(ngModel)]="mobile"
+                      [class]="submited== true && mobile =='' ?'validator_error':''"
+                      [ngModelOptions]="{standalone: true}" />
+                  </c-input-group>
+                </div>
+              </div>
+              <c-input-group class="mb-3">
+                <span cInputGroupText>@</span>
+                <input cFormControl [placeholder]="util.translate('Email')" type="email" required [(ngModel)]="email"
+                  [class]="submited== true && email =='' ?'validator_error':''" [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilLockLocked"></svg>
+                </span>
+                <input cFormControl [placeholder]="util.translate('Password')" type="password" [(ngModel)]="password"
+                  [class]="submited== true && password =='' ?'validator_error':''"
+                  [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+              <c-input-group class="mb-4">
+                <span cInputGroupText>
+                  <svg cIcon name="cilLockLocked"></svg>
+                </span>
+                <input cFormControl [placeholder]="util.translate('Repeat password')" type="password"
+                  [(ngModel)]="confirm_password"
+                  [class]="submited== true && confirm_password =='' ?'validator_error':''"
+                  [ngModelOptions]="{standalone: true}" />
+              </c-input-group>
+              <div class="d-grid">
+                <button cButton color="success" (click)="onRegister()" class="create_btn">
+                  {{util.translate('Create Account')}}</button>
+              </div>
+            </form>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>

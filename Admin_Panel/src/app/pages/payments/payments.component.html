@@ -1,0 +1,279 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    {{util.translate('All Payments')}}
+                </div>
+                <div class="card-body">
+                    <div *ngIf="!payments?.length && dummyPayments.length == 0" style="text-align: center;">
+                        <p>{{util.translate('No Data Found..')}}</p>
+                    </div>
+                    <table class="table table-striped">
+                        <thead *ngIf="payments?.length">
+                            <tr>
+                                <th>{{util.translate('ID')}}</th>
+                                <th>{{util.translate('Method')}}</th>
+                                <th>{{util.translate('Status')}}</th>
+                                <th>{{util.translate('Action')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of dummyPayments">
+                                <td *ngFor="let item of [1,2,3,4]">
+                                    <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let item of payments; let i = index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <td>{{item.name}}</td>
+                                <td>
+                                    <c-badge [color]="item.status == 1?'success':'dark'"
+                                        [class]="item.status == 1 ? 'me-1 badge bg-success':'me-1 badge bg-dark'"
+                                        (click)="updateStatus(item)">
+                                        {{item.status == 1 ?util.translate('Active'):util.translate('Deactived')}}
+                                    </c-badge>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-pill btn-primary" data-toggle="modal"
+                                        (click)="updateItem(item.id)">
+                                        {{util.translate('Edit')}}
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{util.translate('Update')}} {{name}} {{util.translate('Informations')}}</h4>
+                <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="email-input">{{util.translate('Name')}}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" [(ngModel)]="name"
+                            [placeholder]="util.translate('Name')" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="email-input">{{util.translate('Currency Code')}}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" [(ngModel)]="currency_code"
+                            [placeholder]="util.translate('Currency Code')" autocomplete="off">
+                    </div>
+                </div>
+                <div *ngIf="paymentID == 2">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('STRIPE_KEY')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="stripeCreds.key"
+                                [placeholder]="util.translate('STRIPE_KEY')" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('STRIPE_SECRET')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="stripeCreds.secret"
+                                [placeholder]="util.translate('STRIPE_SECRET')" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="paymentID == 3">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('PAYPAL_CLIENT_ID')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="paypalCreds.client_id"
+                                [placeholder]="util.translate('PAYPAL_CLIENT_ID')" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('PAYPAL_CLIENT_SECRET')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="paypalCreds.client_secret"
+                                [placeholder]="util.translate('PAYPAL_CLIENT_SECRET')" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="paymentID == 4">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="select1">
+                            {{util.translate('PAYTM_ENVIRONMENT')}} <span style="color: red;">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <select id="select1" name="select1" class="form-control" [(ngModel)]="payTMCreds.env">
+                                <option value="TEST">{{util.translate('TEST')}}</option>
+                                <option value="PROD">{{util.translate('PROD')}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('PAYTM_MERCHANT_KEY')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="payTMCreds.key"
+                                [placeholder]="util.translate('PAYTM_MERCHANT_KEY')" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('PAYTM_MERCHANT_MID')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="payTMCreds.mid"
+                                [placeholder]="util.translate('PAYTM_MERCHANT_MID')" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('PAYTM_MERCHANT_WEBSITE')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="payTMCreds.stage"
+                                [placeholder]="util.translate('PAYTM_MERCHANT_WEBSITE')" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="paymentID == 5">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('RAZORPAY_KEY')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="razorCreds.key"
+                                [placeholder]="util.translate('RAZORPAY_KEY')" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('RAZORPAY_SECRET')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="razorCreds.secret"
+                                [placeholder]="util.translate('RAZORPAY_SECRET')" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="paymentID == 6">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="select1">
+                            {{util.translate('INSTAMOJO_ENVIRONMENT')}} <span style="color: red;">*</span>
+                        </label>
+                        <div class="col-md-9">
+                            <select id="select1" name="select1" class="form-control" [(ngModel)]="instaMOJO.env">
+                                <option value="TEST">{{util.translate('TEST')}}</option>
+                                <option value="PROD">{{util.translate('PROD')}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('INSTAMOJO_KEY')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="instaMOJO.key"
+                                [placeholder]="util.translate('INSTAMOJO_KEY')" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('INSTAMOJO_TOKEN')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="instaMOJO.token"
+                                [placeholder]="util.translate('INSTAMOJO_TOKEN')" autocomplete="off">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="paymentID == 7">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('PAYSTACK_SK')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="paystackCreds.sk"
+                                [placeholder]="util.translate('PAYSTACK_SK')" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('PAYSTACK_PK')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="paystackCreds.pk"
+                                [placeholder]="util.translate('PAYSTACK_PK')" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="paymentID == 8">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('FLUTTERWAVE_KEY')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="flutterwaveCreds.key"
+                                [placeholder]="util.translate('FLUTTERWAVE_KEY')" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="email-input">
+                            {{util.translate('FLUTTERWAVE_SCRET_KEY')}}
+                        </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" [(ngModel)]="flutterwaveCreds.secret"
+                                [placeholder]="util.translate('FLUTTERWAVE_SCRET_KEY')" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    (click)="largeModal.hide()">{{util.translate('Close')}}</button>
+                <button type="button" class="btn btn-primary" (click)="updatePayment()">
+                    {{util.translate('Save Changes')}}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

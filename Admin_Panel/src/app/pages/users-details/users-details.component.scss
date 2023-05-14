@@ -1,0 +1,180 @@
+/*
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+*/
+.back_image {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 200px;
+}
+
+.gallery-images {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 100px;
+}
+
+.user-names {
+    margin-bottom: 0px;
+
+    .user-name {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: black;
+    }
+
+    .location {
+        font-size: 14px;
+        color: gray;
+    }
+}
+
+.job {
+    color: #20a8d8;
+    font-weight: bold;
+}
+
+.head {
+    font-size: 14px;
+    color: gray;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.sub {
+    font-size: 10px;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.values {
+    font-size: 10px;
+    color: #20a8d8;
+    font-weight: bold;
+}
+
+.b-r-default {
+    border-right: 1px solid lightslategray;
+}
+
+.orders {
+    .card_div_skel {
+        padding: 10px;
+        display: flex;
+        border-radius: 10px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+        position: relative;
+        margin-bottom: 16px;
+        flex-direction: column;
+    }
+
+    .card_div {
+        padding: 10px;
+        display: flex;
+        border-radius: 10px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+        position: relative;
+        margin-bottom: 16px;
+
+        .image_div {
+            height: 95px;
+            width: 95px;
+            min-width: 95px;
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+
+        .status {
+            position: absolute;
+            right: 0;
+            bottom: 0px;
+            padding: 5px;
+            background: green;
+            border-bottom-right-radius: 5px;
+            color: white;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .desc_div {
+            width: 100%;
+            padding: 0px 5px;
+
+            .store_info {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 20px;
+
+                .image_div {
+                    height: 40px;
+                    width: 40px;
+                }
+
+                .name {
+                    font-size: 14px;
+                    margin: 0px;
+                    font-weight: bold;
+                }
+
+                .address {
+                    font-size: 12px;
+                    margin: 0px;
+                }
+            }
+
+            .border_bottom {
+                padding-bottom: 10px;
+                width: 100%;
+
+                .items {
+                    margin: 0px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    font-size: 12px;
+                    font-weight: bold;
+                    padding-bottom: 5px;
+                    border-bottom: 0.5px dashed lightgray;
+                    margin-bottom: 5px;
+                }
+
+                .itemss {
+                    margin: 0px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    font-size: 12px;
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                }
+            }
+
+            .datetime {
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
+    }
+}

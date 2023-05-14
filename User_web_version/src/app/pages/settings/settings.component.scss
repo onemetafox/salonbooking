@@ -1,0 +1,384 @@
+/*
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+*/
+$midnight: #ffffff;
+
+label {
+  display: block;
+  margin: 0;
+}
+
+#map {
+  width: 100%;
+  height: 450px;
+}
+
+.headers {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .text {
+    margin: 0px;
+    font-size: 28px;
+  }
+
+  mdb-icon {
+    color: #0b19df;
+    cursor: pointer;
+  }
+}
+
+.addressList {
+  background: white;
+
+  .select_addr {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    border-bottom: 1px dashed lightgray;
+    align-items: center;
+    padding: 5px;
+    z-index: 9999;
+    overflow: visible;
+    cursor: pointer;
+
+    &:hover {
+      background: darken($midnight, 5%);
+    }
+  }
+}
+
+.borders {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  align-items: center;
+  padding: 5px;
+  justify-content: space-between;
+
+  .address {
+    font-size: 15px;
+    margin: 0px;
+  }
+
+  .changeBtn {
+    color: #0b19df;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0px;
+  }
+}
+
+.back_image {
+  width: 100%;
+  height: 250px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  .overlay {
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .profiles {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .cover {
+        height: 120px;
+        width: 120px;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border: 5px solid white;
+        margin-left: 20px;
+      }
+
+      .user_details {
+        margin-left: 20px;
+
+        .header {
+          font-size: 16px;
+          font-weight: bold;
+          color: white;
+        }
+
+        .details {
+          font-size: 14px;
+          color: white;
+        }
+      }
+    }
+
+    .more_section {
+      .btn {
+        background-color: #0b19df;
+        color: white;
+      }
+    }
+  }
+}
+
+.main_div {
+  margin-top: 20px;
+
+  .head {
+    font-size: 16px;
+    font-weight: bold;
+    color: gray;
+    text-transform: uppercase;
+  }
+
+  .active_btn {
+    color: #0b19df;
+    font-size: 14px;
+    padding: 10px 5px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+    background: rgba(195, 217, 211, 0.5);
+    border-left: 2px solid;
+    font-weight: bold;
+  }
+
+  .normal_btn {
+    color: black;
+    font-size: 14px;
+    padding: 10px 0px;
+    cursor: pointer;
+  }
+
+  .header {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+  }
+
+  .card_div {
+    width: 100%;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 0.5px solid lightgray;
+
+    .line_div {
+      height: 1px;
+      width: 100%;
+      background: lightgray;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .resto_detail {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .back_image {
+        height: 50px;
+        width: 50px;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border-radius: 5px;
+        min-width: 50px;
+      }
+
+      .res_name {
+        font-weight: 600;
+      }
+
+      .res_location {
+        color: lightgray;
+        font-size: 14px;
+      }
+    }
+
+    .order_detail {
+      .head_gray {
+        color: lightgray;
+        font-size: 13px;
+        margin-top: 10px;
+        display: block;
+        margin-bottom: 0px;
+      }
+
+      .small_lbl {
+        font-size: 12px;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0px;
+      }
+
+      .border_bottom {
+        border-bottom: 1px dashed lightgray;
+        padding: 5px 0px;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .subNames {
+        border-bottom: 1px dashed lightgray;
+        padding-bottom: 5px;
+
+        .food_title {
+          font-size: 15px;
+          font-weight: bold;
+        }
+
+        .flex_titles {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          .sub_name {
+            margin: 0px;
+            color: black;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .status_detail {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      color: lightgray;
+      font-size: 14px;
+    }
+  }
+
+  .newAddress_card {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background: darken($midnight, 5%);
+    }
+  }
+
+  .edit_profile {
+    margin-bottom: 40px;
+
+    .title_text {
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
+
+    .round_image {
+      // background: #f5f5f5;
+      height: 90px;
+      width: 90px;
+      border-radius: 50%;
+      position: relative;
+      margin-top: 30px !important;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      margin: auto;
+
+      .user_icn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #93959f;
+        font-size: 30px;
+      }
+
+      .green_box {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: #0b19df;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        .pencil_icn {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          color: white;
+        }
+      }
+
+      .green_box>input {
+        display: none;
+      }
+    }
+
+    .round_btn {
+      background: #0b19df;
+      color: white;
+      font-size: 18px;
+      margin: 0;
+      margin-top: 50px;
+      letter-spacing: 1px;
+    }
+  }
+
+  .address_card {
+    padding: 10px;
+
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0px;
+      text-transform: uppercase;
+    }
+
+    .full_address {
+      font-size: 14px;
+      margin: 0px;
+    }
+
+    .btns {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .editBtn {
+        color: #0b19df;
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .delete {
+        color: gray;
+        font-weight: bold;
+        font-size: 14px;
+        margin: 0px 15px;
+        cursor: pointer;
+        padding: 5px;
+      }
+    }
+  }
+}

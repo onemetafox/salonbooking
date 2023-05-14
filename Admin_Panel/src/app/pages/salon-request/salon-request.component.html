@@ -1,0 +1,127 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    {{util.translate('All Request')}}
+                </div>
+                <div class="card-body">
+
+
+
+                    <table class="table table-responsive-sm table-hover mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">{{util.translate('Id')}}</th>
+                                <th scope="col">{{util.translate('Cover')}}</th>
+                                <th scope="col">{{util.translate('Name')}}</th>
+                                <th scope="col">{{util.translate('City')}}</th>
+                                <th scope="col">{{util.translate('Categories')}}</th>
+                                <th scope="col">{{util.translate('Fee start')}}</th>
+                                <th scope="col">{{util.translate('Action')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of dummyFreelacer">
+                                <td *ngFor="let item of [1,2,3,4,1,2,3,4,5,5,6]">
+                                    <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                                </td>
+                            </tr>
+                            <tr
+                                *ngFor="let item of freelancers | paginate: {id:'pagin1', itemsPerPage: 10, currentPage: page }">
+                                <th scope="row">
+                                    {{item.id}}
+                                </th>
+                                <td>
+                                    <img class="img-responsive" style="height: 40px;width: 40px; object-fit: cover;"
+                                        [src]="api.imageUrl + item.cover" onError="this.src='assets/img/dummy.jpeg'">
+                                </td>
+                                <td>
+                                    {{item.first_name +' '+ item.last_name}}
+                                </td>
+                                <td>
+                                    {{item && item.city_data && item.city_data.name && item.city_data.name !=null ?
+                                    item.city_data.name :''}}
+                                </td>
+                                <td>
+                                    <div class="cate_info">
+                                        <span *ngFor="let cate of item.web_cates_data;let cateIndex = index">
+                                            <p style="font-size: 10px;margin: 0px;"> {{cate.name}} <span
+                                                    *ngIf="cateIndex !=item.web_cates_data.length - 1">,</span></p>
+
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>$ {{item.fee_start}}</td>
+
+                                <td>
+                                    <div class="d-flex align-items-center">
+
+                                        <c-badge color="success" class="me-1 badge bg-success" (click)="accept(item)">
+                                            {{ util.translate('Accept')}}
+                                        </c-badge>
+
+                                        <c-badge color="danger" class="me-1 badge bg-danger" (click)="reject(item)">
+                                            {{ util.translate('Reject')}}
+                                        </c-badge>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="error_div" *ngIf="freelancers?.length <= 0 && dummyFreelacer?.length <= 0">
+                        <label>{{util.translate('No Data Found..')}}</label>
+                    </div>
+
+                    <div *ngIf="freelancers?.length > 0">
+                        <pagination-controls id="pagin1" (pageChange)="page = $event"></pagination-controls>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{util.translate('Add Commission')}}</h4>
+                <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow: scroll;height: 150px;">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label class="form-control-label" for="input-email">
+                            {{util.translate('Commission Rate')}}</label>
+                        <input type="number" id="input-email" class="form-control form-control-alternative"
+                            placeholder="Commission Rate" [(ngModel)]="rate">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    (click)="largeModal.hide()">{{util.translate('Close')}}</button>
+                <button type="button" class="btn btn-primary" (click)="acceptRequest()">
+                    {{util.translate('Save Changes')}}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

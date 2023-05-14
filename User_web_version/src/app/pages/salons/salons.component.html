@@ -1,0 +1,1139 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="main-content bg-color p-1" *ngIf="util.deviceType !='mobile'">
+  <!-- profile -->
+  <div class="container pt-3">
+    <div class="bg-white shadow-sm rounded text-center p-3">
+      <div class="row gx-lg-5 align-items-center" *ngIf="apiCalled == true">
+        <div class="col-lg-2 mb-2 mb-lg-0">
+          <div [ngStyle]="{'background-image': 'url('+ api.mediaURL + cover +'),url(assets/images/placeholder.jpg)'}"
+            class="w-100 rounded-4 shadow-5 user-img"> </div>
+        </div>
+        <div class="col-lg-6 mb-lg-0" style="text-align: start;">
+          <h6 class="h3-responsive mb-2 ff-medium ls-tight">{{name}}</h6>
+
+          <div class="d-flex ls-tight">
+            <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 1 ? 'orange':'grey'}">
+            </mdb-icon>
+            <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 2 ? 'orange':'grey'}">
+            </mdb-icon>
+            <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 3 ? 'orange':'grey'}">
+            </mdb-icon>
+            <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 4 ? 'orange':'grey'}">
+            </mdb-icon>
+            <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 5 ? 'orange':'grey'}">
+            </mdb-icon>
+            <h6 class="text-muted ff-medium pl-2 rf-6 m-0 rf-lg-1">
+              ({{totalRating}}) {{util.translate('Reviews')}} </h6>
+          </div>
+          <h6 class="text-muted ff-medium rf-6 m-0 rf-lg-1 pt-3"> {{util.translate("Salon Specialist")}} </h6>
+          <div
+            style="display: flex;flex-direction: row;align-items: center;justify-content: start;padding-top: 10px; overflow: scroll;">
+            <div *ngFor="let item of specialist" style="margin: 0px 5px;">
+              <div class="rounded-4 shadow-5 specialist"
+                [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}">
+              </div>
+              <p class="specialist_name"> {{item.first_name}} <br> {{item.last_name}} </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="apiCalled == false" class="row gx-lg-5 align-items-center justify-content-center">
+        <div class="spinner-border" role="status"></div>
+      </div>
+    </div>
+  </div>
+  <!-- service-body -->
+  <section class="py-2 service-main-body">
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-lg-3 pr-lg-0 mb-2">
+          <div class="sticky_sidebar bg-white rounded shadow-sm">
+            <div>
+              <ul class="nav flex-column rounded px-2 py-2 v-tab">
+                <li (click)="changeTab('1')"> <a class="nav-link p-3 rounded mb-lg-2 text-dark"
+                    [ngClass]="currentTab =='1' ? 'active':''">{{util.translate('Services')}} </a>
+                </li>
+
+                <li (click)="changeTab('2')"> <a class="nav-link p-3 rounded mb-lg-2 text-dark"
+                    [ngClass]="currentTab =='2' ? 'active':''">{{util.translate('Shop')}} </a>
+                </li>
+
+                <li (click)="changeTab('3')"> <a class="nav-link p-3 rounded mb-lg-2 text-dark"
+                    [ngClass]="currentTab =='3' ? 'active':''">{{util.translate('Reviews')}} </a>
+                </li>
+
+                <li (click)="changeTab('4')"> <a class="nav-link p-3 rounded mb-lg-2 text-dark"
+                    [ngClass]="currentTab =='4' ? 'active':''">{{util.translate('Overview')}}</a> </li>
+
+                <li (click)="changeTab('5')"> <a class="nav-link p-3 rounded mb-lg-2 text-dark"
+                    [ngClass]="currentTab =='5' ? 'active':''">{{util.translate('Gallery')}} </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service -->
+        <div class="col-lg-6 px-lg-2" *ngIf="currentTab == '1'">
+          <div class="bg-white rounded shadow-sm">
+            <h6 class="h4-responsive ff-medium text-center pt-4 m-0">{{util.translate('Services')}}</h6>
+            <div style="height: 20px;">
+
+            </div>
+            <div class="justify-center">
+              <ul class="nav flex-row rounded px-2 py-2 v-tab-bottom" style="width: 100%;">
+                <li (click)="serviceTab = '1'" style="width: 50%;text-align: center;"> <a
+                    class="nav-link p-3 rounded mb-lg-2 text-dark"
+                    [ngClass]="serviceTab =='1' ? 'active':''">{{util.translate('Services')}} </a></li>
+                <li (click)="serviceTab = '2'" style="width: 50%;text-align: center;"> <a
+                    class="nav-link p-3 rounded mb-lg-2 text-dark"
+                    [ngClass]="serviceTab =='2' ? 'active':''">{{util.translate('Packages')}} </a></li>
+              </ul>
+            </div>
+            <div class="card-body p-0" *ngIf="apiCalled == true && serviceTab == '1' ">
+              <div class="service-cart" *ngFor="let item of categories;let i = index;">
+                <div class="cart-items bg-white px-3 py-4 border-bottom">
+                  <div class="d-flex align-items-center p-0">
+                    <a>
+                      <img
+                        [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}"
+                        class="img-fluid" />
+                    </a>
+                    <a class="ml-3 text-dark text-decoration-none w-100">
+                      <p class="head-text">{{item.name}}</p>
+                      <p class="sub-text"> {{item.services}} {{util.translate("Types")}} </p>
+
+                      <div class="d-flex align-items-center">
+
+                        <div class="d-flex ml-auto" (click)="openService(item.id,item.name)">
+                          <span>{{util.translate("View")}} </span>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="no_data" *ngIf="categories.length == 0">
+                <div class="empty" [ngStyle]="{'background-image':'url(assets/nodata.jpg)'}"></div>
+                <p> {{util.translate('Opps.. nothing found')}}</p>
+              </div>
+            </div>
+
+            <div class="card-body p-0" *ngIf="apiCalled == true && serviceTab == '2' ">
+              <div class="service-cart" *ngFor="let item of packages;let i = index;">
+                <div class="cart-items bg-white px-3 py-4 border-bottom">
+                  <div class="d-flex align-items-center p-0">
+                    <a>
+                      <img
+                        [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}"
+                        class="img-fluid" />
+                    </a>
+                    <a class="ml-3 text-dark text-decoration-none w-100">
+                      <p class="head-text">{{item.name}}</p>
+
+                      <div class="d-flex align-items-center">
+                        <p class="h6 sub-text small m-0 mr-3" *ngIf="item.off > 0">
+                          <del>
+                            <span *ngIf="util.currencySide == 'left'">
+                              {{util.currencySymbol}} {{item.price}} </span>
+                            <span *ngIf="util.currencySide == 'right'"> {{item.price}}
+                              {{util.currencySymbol}} </span>
+                          </del>
+                        </p>
+                        <p class="h6 f-primary m-0">
+                          <span class="ff-medium head-text" *ngIf="util.currencySide == 'left'"> {{util.currencySymbol}}
+                            {{item.off}} </span>
+                          <span class="ff-medium head-text" *ngIf="util.currencySide == 'right'"> {{item.off}}
+                            {{util.currencySymbol}} </span>
+                        </p>
+
+                        <div class="d-flex ml-auto" (click)="openPackage(item.id,item.name)">
+                          <span>{{util.translate("View")}} </span>
+                        </div>
+
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="no_data" *ngIf="packages.length == 0">
+                <div class="empty" [ngStyle]="{'background-image':'url(assets/nodata.jpg)'}"></div>
+                <p> {{util.translate('Opps.. nothing found')}}</p>
+              </div>
+            </div>
+
+            <div class="card-body p-0" *ngIf="apiCalled == false">
+              <div *ngFor="let item of [1,2,3,4,5]" class="card_div_services">
+                <div class="resto_detail">
+                  <div class="back_image">
+                    <ngx-skeleton-loader appearance="circle"
+                      [theme]="{ 'border-radius': '5px', height: '50px',width:'100%'}">
+                    </ngx-skeleton-loader>
+                  </div>
+                  <div style="margin-left: 20px;display: flex;flex-direction: column;">
+                    <label class="res_name" style="margin: 0px;">
+                      <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'120px'}">
+                      </ngx-skeleton-loader>
+                    </label>
+                    <label class="res_location" style="margin: 0px;">
+                      <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+                      </ngx-skeleton-loader>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Shop -->
+        <div class="col-lg-6 px-lg-2" *ngIf="currentTab == '2'">
+          <div class="bg-white rounded shadow-sm">
+            <h6 class="h4-responsive ff-medium text-center pt-4 m-0">{{util.translate('Shop')}}</h6>
+
+            <div class="card-body">
+              <div class="row" *ngIf="productsCalled == true">
+                <div class="col-6 col-md-6 col-lg-6 my-2 p-0" *ngFor="let item of productList;let i = index">
+                  <div class="px-0 m-2 rounded overflow-hidden shadow-sm animate border">
+                    <a class="text-dark">
+                      <div class="product-list text-center pb-3">
+                        <div (click)="openProduct(item.id)"
+                          [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}"
+                          class="bg-img mb-3 "></div>
+                        <h5 class="head-text text-black ff-medium px-2 text-overflow" (click)="openProduct(item.id)">
+                          {{item.name}}</h5>
+
+                        <div class="d-flex justify-content-center align-item-center mb-2"
+                          (click)="openProduct(item.id)">
+                          <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 1 ? 'orange':'grey'}">
+                          </mdb-icon>
+                          <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 2 ? 'orange':'grey'}">
+                          </mdb-icon>
+                          <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 3 ? 'orange':'grey'}">
+                          </mdb-icon>
+                          <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 4 ? 'orange':'grey'}">
+                          </mdb-icon>
+                          <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 5 ? 'orange':'grey'}">
+                          </mdb-icon>
+                          <h6 class="text-muted ff-medium pl-2 rf-6 m-0 rf-lg-1">
+                            {{item.total_rating}}</h6>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center mx-3"
+                          (click)="openProduct(item.id)">
+                          <h6 class="h6 mb-0 pr-3 text-muted small">
+                            <del>
+                              <span *ngIf="util.currencySide == 'left'">
+                                {{util.currencySymbol}} {{item.original_price}}
+                              </span>
+                              <span *ngIf="util.currencySide == 'right'">
+                                {{item.original_price}}
+                                {{util.currencySymbol}} </span>
+                            </del>
+                          </h6>
+                          <h6 class="f-primary mb-0">
+                            <span class="ff-medium head-text" *ngIf="util.currencySide == 'left'">
+                              {{util.currencySymbol}}
+                              {{item.sell_price}} </span>
+                            <span class="ff-medium head-text" *ngIf="util.currencySide == 'right'"> {{item.sell_price}}
+                              {{util.currencySymbol}} </span>
+                          </h6>
+                        </div>
+
+                        <button type="button" (click)="addToCart(i)" *ngIf="item.quantity == 0" mdbBtn
+                          class="rounded text-white m-0 mt-2 py-2 px-4 btn-color"
+                          mdbWavesEffect>{{util.translate('ADD')}}</button>
+
+                        <div class="qty_flex my-2" *ngIf="productCart.itemId.includes(item.id)">
+                          <div class="round_btn" (click)="remove(i)">
+                            <mdb-icon fas icon="minus"></mdb-icon>
+                          </div>
+                          <h6 class="m-0 ff-medium px-2">{{item.quantity}}</h6>
+                          <div class="round_btn" (click)="add(i)">
+                            <mdb-icon fas icon="plus"></mdb-icon>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="no_data" *ngIf="productList.length == 0 && productsCalled == true">
+                <div class="empty" [ngStyle]="{'background-image':'url(assets/nodata.jpg)'}"></div>
+                <p> {{util.translate('Opps.. nothing found')}}</p>
+              </div>
+            </div>
+
+            <div class="card-body p-0" *ngIf="productsCalled == false">
+              <div *ngFor="let item of [1,2,3,4,5]" class="card_div_services">
+                <div class="resto_detail">
+                  <div class="back_image">
+                    <ngx-skeleton-loader appearance="circle"
+                      [theme]="{ 'border-radius': '5px', height: '50px',width:'100%'}">
+                    </ngx-skeleton-loader>
+                  </div>
+                  <div style="margin-left: 20px;display: flex;flex-direction: column;">
+                    <label class="res_name" style="margin: 0px;">
+                      <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'120px'}">
+                      </ngx-skeleton-loader>
+                    </label>
+                    <label class="res_location" style="margin: 0px;">
+                      <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+                      </ngx-skeleton-loader>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- review -->
+        <div class="col-lg-9" *ngIf="currentTab == '3'">
+          <div class="bg-white rounded shadow-sm">
+            <h6 class="h4-responsive ff-medium text-center pt-4 m-0">{{util.translate('Reviews')}}</h6>
+            <div class="card-body p-0" *ngIf="reviewsCalled == true ">
+              <div class="review-user"
+                *ngFor="let item of reviewList | paginate: {id:'pagin1', itemsPerPage:5, currentPage: page };let i = index; ">
+                <div class="review-profile bg-white px-3 py-3 border-bottom">
+                  <div class="d-flex align-items-center p-0">
+                    <div
+                      [ngStyle]="{'background-image':'url('+api.mediaURL + item.user.cover+'),url(assets/images/placeholder.jpg)'}"
+                      class="img-fluid rounded-circle">
+                    </div>
+
+                    <a class="ml-3 text-dark text-decoration-none w-100">
+                      <h6 class="h6 mb-2 ff-medium">{{item.user.first_name +' '+
+                        item.user.last_name}}</h6>
+                      <div class="d-flex mb-2">
+                        <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 1 ? 'orange':'grey'}">
+                        </mdb-icon>
+                        <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 2 ? 'orange':'grey'}">
+                        </mdb-icon>
+                        <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 3 ? 'orange':'grey'}">
+                        </mdb-icon>
+                        <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 4 ? 'orange':'grey'}">
+                        </mdb-icon>
+                        <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 5 ? 'orange':'grey'}">
+                        </mdb-icon>
+
+                      </div>
+                      <h6 class="h6 mb-2 small text-muted">{{item.created_at.substring(0,11)}}
+                      </h6>
+                    </a>
+                  </div>
+                  <p class="text-muted mt-2 rf-6 rf-lg-1 m-0"> {{item.notes}} </p>
+                </div>
+              </div>
+
+              <div style="padding: 10px 0px;" *ngIf="reviewList?.length ">
+                <pagination-controls id="pagin1" (pageChange)="page = $event"></pagination-controls>
+              </div>
+            </div>
+
+            <div class="card-body p-0" *ngIf="reviewsCalled == true && reviewList.length == 0 ">
+              <div class="no_data">
+                <div class="empty" [ngStyle]="{'background-image':'url(assets/nodata.jpg)'}"></div>
+                <p> {{util.translate('Opps.. nothing found')}}</p>
+              </div>
+            </div>
+
+            <div class="card-body p-0" *ngIf="reviewsCalled == false">
+              <div *ngFor="let item of [1,2,3,4,5]" class="card_div_services">
+                <div class="resto_detail">
+                  <div class="back_image">
+                    <ngx-skeleton-loader appearance="circle"
+                      [theme]="{ 'border-radius': '5px', height: '50px',width:'100%'}">
+                    </ngx-skeleton-loader>
+                  </div>
+                  <div style="margin-left: 20px;display: flex;flex-direction: column;">
+                    <label class="res_name" style="margin: 0px;">
+                      <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'120px'}">
+                      </ngx-skeleton-loader>
+                    </label>
+                    <label class="res_location" style="margin: 0px;">
+                      <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+                      </ngx-skeleton-loader>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- info -->
+        <div class="col-lg-9" *ngIf="currentTab == '4'">
+          <div class="bg-white rounded shadow-sm">
+            <h6 class="h4-responsive ff-medium text-center pt-4 m-0">{{util.translate('Overview')}}</h6>
+            <div class="card-body p-0">
+              <div class="px-3 py-3">
+                <p class="rf-6 rf-lg-1 ff-bold">{{util.translate('Descriptions')}}</p>
+                <p class="rf-6 rf-lg-1"> {{descriptions}} </p>
+                <p class="rf-6 rf-lg-1 ff-bold">{{util.translate('Contact Detail')}}</p>
+                <h6 class="rf-6 rf-lg-1"> {{email}} </h6>
+                <p class="rf-6 rf-lg-1">{{country_code}} {{mobile}} </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- gallary -->
+        <div class="col-lg-9" *ngIf="currentTab == '5'">
+          <div class="bg-white rounded shadow-sm">
+            <h6 class="h4-responsive ff-medium text-center pt-4 m-0">{{util.translate('Photos')}}</h6>
+
+            <div class="card-body p-0">
+              <div class="service-cart">
+                <div class="px-3 py-3">
+                  <div class="row m-1 g-2">
+                    <div class="col-6 col-md-4 px-1 p-0 " *ngFor="let item of gallary">
+                      <div class="px-0 py-0 pb-2 rounded overflow-hidden shadow-sm ">
+                        <a>
+                          <div>
+                            <div
+                              [ngStyle]="{'background-image': 'url('+ api.mediaURL + item +'),url(assets/images/placeholder.jpg)'}"
+                              class="gallery-img">
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 pl-lg-0 mt-lg-0 mt-2" *ngIf="currentTab == '1'">
+          <div class="sticky_sidebar">
+            <div class="pd bg-white rounded overflow-hidden shadow-sm mb-3 checkout-sidebar">
+              <div class="border-bottom bg-white p-3">
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-column">
+                    <h6 class="head-text m-0 ff-bold">{{util.translate('Cart')}}</h6>
+                    <p class="m-0 small text-muted"> {{serviceCart.totalItemInCart}} {{util.translate('Items')}}</p>
+                  </div>
+                  <p class="m-0 small text-muted" (click)="clearServiceCart()" style="cursor: pointer;">
+                    {{util.translate('Clear Cart')}}</p>
+                </div>
+              </div>
+              <div class="px-3 py-2 border-bottom" *ngFor="let item of serviceCart.serviceCart">
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-column">
+                    <p class="small mb-0 ff-medium"> {{item.name}} </p>
+                  </div>
+                  <div class="d-flex">
+                    <p class="small f-primary m-0">
+                      <span class="ff-medium" *ngIf="util.currencySide == 'left'">
+                        {{util.currencySymbol}}
+                        {{item.off}} </span>
+                      <span class="ff-medium" *ngIf="util.currencySide == 'right'"> {{item.off}}
+                        {{util.currencySymbol}} </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="px-3 py-2 border-bottom" *ngFor="let item of serviceCart.packagesCart">
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-column">
+                    <p class="small mb-0 ff-medium"> {{item.name}} </p>
+                    <div *ngFor="let sub of item.services;">
+                      <span style="font-size: 10px;"> - {{sub.name}} </span>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <p class="small f-primary m-0">
+                      <span class="ff-medium" *ngIf="util.currencySide == 'left'">
+                        {{util.currencySymbol}}
+                        {{item.off}} </span>
+                      <span class="ff-medium" *ngIf="util.currencySide == 'right'"> {{item.off}}
+                        {{util.currencySymbol}} </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 border-top" *ngIf="serviceCart.totalItemInCart > 0">
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 ff-bold">{{util.translate('Subtotal')}}</h6>
+                    <p class="m-0 small text-muted">{{util.translate('Extra charge may apply')}}</p>
+                  </div>
+                  <h6 class="f-primary h5">
+                    <span class="ff-medium" *ngIf="util.currencySide == 'left'">
+                      {{util.currencySymbol}}
+                      {{serviceCart.totalPrice}} </span>
+                    <span class="ff-medium" *ngIf="util.currencySide == 'right'">
+                      {{serviceCart.totalPrice}}
+                      {{util.currencySymbol}} </span>
+                  </h6>
+                </div>
+              </div>
+              <div class="text-center" *ngIf="serviceCart.totalItemInCart > 0">
+                <button type="button" (click)="goToCheckout()" mdbBtn class="rounded text-white my-3  btn-color"
+                  mdbWavesEffect>{{util.translate('Checkout')}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-3 pl-lg-0 mt-lg-0 mt-2" *ngIf="currentTab == '2'">
+          <div class="sticky_sidebar">
+            <div class="pd bg-white rounded overflow-hidden shadow-sm mb-3 checkout-sidebar">
+              <div class="border-bottom bg-white p-3">
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-column">
+                    <h6 class="head-text m-0 ff-bold">{{util.translate('Product Cart')}}</h6>
+                    <p class="m-0 small text-muted"> {{productCart.cart.length}} {{util.translate('Items')}} </p>
+                  </div>
+                  <p class="m-0 small text-muted" (click)="clearProductCart()" style="cursor: pointer;">
+                    {{util.translate('Clear Cart')}}</p>
+                </div>
+              </div>
+              <div class="px-3 py-2 border-bottom" *ngFor="let item of productCart.cart">
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-column">
+                    <p class="small mb-0 ff-medium"> {{ (item.name.length>18)? (item.name | slice:0:18)+'..':(item.name)
+                      }} x {{item.quantity}} </p>
+                  </div>
+                  <div class="d-flex">
+                    <p class="small f-primary m-0">
+                      <span class="ff-medium" *ngIf="util.currencySide == 'left'">
+                        {{util.currencySymbol}}
+                        {{item.sell_price}} </span>
+                      <span class="ff-medium" *ngIf="util.currencySide == 'right'">
+                        {{item.sell_price}}
+                        {{util.currencySymbol}} </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 border-top" *ngIf="productCart.cart.length">
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 ff-bold">{{util.translate('Subtotal')}}</h6>
+                    <p class="m-0 small text-muted">{{util.translate('Extra charge may apply')}}</p>
+                  </div>
+                  <h6 class="f-primary h5">
+                    <span class="ff-medium" *ngIf="util.currencySide == 'left'">
+                      {{util.currencySymbol}}
+                      {{productCart.totalPrice}} </span>
+                    <span class="ff-medium" *ngIf="util.currencySide == 'right'">
+                      {{productCart.totalPrice}}
+                      {{util.currencySymbol}} </span>
+                  </h6>
+                </div>
+              </div>
+              <div class="text-center" *ngIf="productCart.cart.length">
+                <button type="button" (click)="goToProductCheckout()" mdbBtn class="rounded text-white my-3  btn-color"
+                  mdbWavesEffect>{{util.translate('Checkout')}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="main-content bg-color p-1" *ngIf="util.deviceType =='mobile'">
+  <div class="container pt-3">
+    <div class="row bg-white shadow-sm rounded text-center p-3" *ngIf="apiCalled == true">
+      <div class="col-4">
+        <div [ngStyle]="{'background-image': 'url('+ api.mediaURL + cover +'),url(assets/images/placeholder.jpg)'}"
+          class="w-100 rounded-4 shadow-5 user-img-tiny"> </div>
+      </div>
+      <div class="col-8">
+        <h6 class="h3-responsive mb-2 ff-medium ls-tight" style="text-align: start;">{{name}}</h6>
+
+        <div class="d-flex justify-content-start ls-tight">
+          <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 1 ? 'orange':'grey'}">
+          </mdb-icon>
+          <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 2 ? 'orange':'grey'}">
+          </mdb-icon>
+          <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 3 ? 'orange':'grey'}">
+          </mdb-icon>
+          <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 4 ? 'orange':'grey'}">
+          </mdb-icon>
+          <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 5 ? 'orange':'grey'}">
+          </mdb-icon>
+          <h6 class="text-muted ff-medium pl-2 rf-6 m-0 rf-lg-1">
+            {{totalRating}}{{util.translate('Reviews')}} </h6>
+        </div>
+      </div>
+    </div>
+    <h6 class="text-muted ff-medium rf-6 m-0 rf-lg-1 pt-3"> {{util.translate("Salon Specialist")}} </h6>
+    <div style="display: flex;flex-direction: row;align-items: center;justify-content: start;padding-top: 10px; ">
+      <div *ngFor="let item of specialist" style="margin: 0px 5px;">
+        <div class="rounded-4 shadow-5 specialist"
+          [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}">
+        </div>
+        <p class="specialist_name"> {{item.first_name}} <br> {{item.last_name}} </p>
+      </div>
+    </div>
+    <div *ngIf="apiCalled == false" class="row gx-lg-5 align-items-center justify-content-center">
+      <div class="spinner-border" role="status"></div>
+    </div>
+
+    <div class="flex_menu">
+      <label [ngClass]="currentTab == '1' ? 'activeTab' : 'deactiveTab'"
+        (click)="changeTab('1')">{{util.translate('Services')}}</label>
+      <label [ngClass]="currentTab == '2' ? 'activeTab' : 'deactiveTab'"
+        (click)="changeTab('2')">{{util.translate('Shop')}}</label>
+      <label [ngClass]="currentTab == '3' ? 'activeTab' : 'deactiveTab'"
+        (click)="changeTab('3')">{{util.translate('Reviews')}}</label>
+      <label [ngClass]="currentTab == '4' ? 'activeTab' : 'deactiveTab'"
+        (click)="changeTab('4')">{{util.translate('Overview')}}</label>
+      <label [ngClass]="currentTab == '5' ? 'activeTab' : 'deactiveTab'"
+        (click)="changeTab('5')">{{util.translate('Gallery')}}</label>
+    </div>
+
+    <!-- services -->
+    <div class="col-lg-12 px-lg-2" *ngIf="currentTab == '1'" style="padding: 0px !important;">
+      <div class="bg-white rounded shadow-sm">
+        <h6 class="h4-responsive ff-medium text-center pt-4 m-0">{{util.translate('Services')}}</h6>
+        <div style="height: 20px;">
+
+        </div>
+        <div class="justify-center">
+          <ul class="nav flex-row rounded px-2 py-2 v-tab-bottom" style="width: 100%;">
+            <li (click)="serviceTab = '1'" style="width: 50%;text-align: center;"> <a
+                class="nav-link p-3 rounded mb-lg-2 text-dark"
+                [ngClass]="serviceTab =='1' ? 'active':''">{{util.translate('Services')}} </a></li>
+            <li (click)="serviceTab = '2'" style="width: 50%;text-align: center;"> <a
+                class="nav-link p-3 rounded mb-lg-2 text-dark"
+                [ngClass]="serviceTab =='2' ? 'active':''">{{util.translate('Packages')}} </a></li>
+          </ul>
+        </div>
+        <div class="card-body p-0" *ngIf="apiCalled == true && serviceTab == '1' ">
+          <div class="service-cart" *ngFor="let item of categories;let i = index;">
+            <div class="cart-items bg-white px-3 py-4 border-bottom">
+              <div class="d-flex align-items-center p-0">
+                <a>
+                  <img
+                    [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}"
+                    class="img-fluid" />
+                </a>
+                <a class="ml-3 text-dark text-decoration-none w-100">
+                  <p class="head-text">{{item.name}}</p>
+                  <p class="sub-text"> {{item.services}} {{util.translate("Types")}} </p>
+
+                  <div class="d-flex align-items-center">
+
+                    <div class="d-flex ml-auto" (click)="openService(item.id,item.name)">
+                      <span>{{util.translate("View")}} </span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="no_data" *ngIf="categories.length == 0">
+            <div class="empty" [ngStyle]="{'background-image':'url(assets/nodata.jpg)'}"></div>
+            <p> {{util.translate('Opps.. nothing found')}}</p>
+          </div>
+        </div>
+
+        <div class="card-body p-0" *ngIf="apiCalled == true && serviceTab == '2' ">
+          <div class="service-cart" *ngFor="let item of packages;let i = index;">
+            <div class="cart-items bg-white px-3 py-4 border-bottom">
+              <div class="d-flex align-items-center p-0">
+                <a>
+                  <img
+                    [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}"
+                    class="img-fluid" />
+                </a>
+                <a class="ml-3 text-dark text-decoration-none w-100">
+                  <p class="head-text">{{item.name}}</p>
+
+                  <div class="d-flex align-items-center">
+                    <p class="h6 sub-text small m-0 mr-3" *ngIf="item.off > 0">
+                      <del>
+                        <span *ngIf="util.currencySide == 'left'">
+                          {{util.currencySymbol}} {{item.price}} </span>
+                        <span *ngIf="util.currencySide == 'right'"> {{item.price}}
+                          {{util.currencySymbol}} </span>
+                      </del>
+                    </p>
+                    <p class="h6 f-primary m-0">
+                      <span class="ff-medium head-text" *ngIf="util.currencySide == 'left'"> {{util.currencySymbol}}
+                        {{item.off}} </span>
+                      <span class="ff-medium head-text" *ngIf="util.currencySide == 'right'"> {{item.off}}
+                        {{util.currencySymbol}} </span>
+                    </p>
+
+                    <div class="d-flex ml-auto" (click)="openPackage(item.id,item.name)">
+                      <span>{{util.translate("View")}} </span>
+                    </div>
+
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="no_data" *ngIf="packages.length == 0">
+            <div class="empty" [ngStyle]="{'background-image':'url(assets/nodata.jpg)'}"></div>
+            <p> {{util.translate('Opps.. nothing found')}}</p>
+          </div>
+        </div>
+
+        <div class="card-body p-0" *ngIf="apiCalled == false">
+          <div *ngFor="let item of [1,2,3,4,5]" class="card_div_services">
+            <div class="resto_detail">
+              <div class="back_image">
+                <ngx-skeleton-loader appearance="circle"
+                  [theme]="{ 'border-radius': '5px', height: '50px',width:'100%'}">
+                </ngx-skeleton-loader>
+              </div>
+              <div style="margin-left: 20px;display: flex;flex-direction: column;">
+                <label class="res_name" style="margin: 0px;">
+                  <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'120px'}">
+                  </ngx-skeleton-loader>
+                </label>
+                <label class="res_location" style="margin: 0px;">
+                  <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+                  </ngx-skeleton-loader>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- services -->
+
+    <!-- shop -->
+    <div class="col-lg-12 px-lg-2" *ngIf="currentTab == '2'">
+      <div class="bg-white rounded shadow-sm">
+        <h6 class="h4-responsive ff-medium text-center pt-4 m-0">{{util.translate('Shop')}}</h6>
+
+        <div class="card-body">
+          <div class="row" *ngIf="productsCalled == true">
+            <div class="col-6 col-md-6 col-lg-6 my-2 p-0" *ngFor="let item of productList;let i = index">
+              <div class="px-0 m-2 rounded overflow-hidden shadow-sm animate border">
+                <a class="text-dark">
+                  <div class="product-list text-center pb-3">
+                    <div (click)="openProduct(item.id)"
+                      [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}"
+                      class="bg-img mb-3 "></div>
+                    <h5 class="head-text text-black ff-medium px-2 text-overflow" (click)="openProduct(item.id)">
+                      {{item.name}}</h5>
+
+                    <div class="d-flex justify-content-center align-item-center mb-2" (click)="openProduct(item.id)">
+                      <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 1 ? 'orange':'grey'}">
+                      </mdb-icon>
+                      <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 2 ? 'orange':'grey'}">
+                      </mdb-icon>
+                      <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 3 ? 'orange':'grey'}">
+                      </mdb-icon>
+                      <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 4 ? 'orange':'grey'}">
+                      </mdb-icon>
+                      <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 5 ? 'orange':'grey'}">
+                      </mdb-icon>
+                      <h6 class="text-muted ff-medium pl-2 rf-6 m-0 rf-lg-1" (click)="openProduct(item.id)">
+                        {{item.total_rating}}</h6>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mx-3" (click)="openProduct(item.id)">
+                      <h6 class="h6 mb-0 pr-3 text-muted small">
+                        <del>
+                          <span *ngIf="util.currencySide == 'left'">
+                            {{util.currencySymbol}} {{item.original_price}}
+                          </span>
+                          <span *ngIf="util.currencySide == 'right'">
+                            {{item.original_price}}
+                            {{util.currencySymbol}} </span>
+                        </del>
+                      </h6>
+                      <h6 class="f-primary mb-0">
+                        <span class="ff-medium head-text" *ngIf="util.currencySide == 'left'">
+                          {{util.currencySymbol}}
+                          {{item.sell_price}} </span>
+                        <span class="ff-medium head-text" *ngIf="util.currencySide == 'right'"> {{item.sell_price}}
+                          {{util.currencySymbol}} </span>
+                      </h6>
+                    </div>
+
+                    <button type="button" (click)="addToCart(i)" *ngIf="item.quantity == 0" mdbBtn
+                      class="rounded text-white m-0 mt-2 py-2 px-4 btn-color"
+                      mdbWavesEffect>{{util.translate('ADD')}}</button>
+
+                    <div class="qty_flex my-2" *ngIf="productCart.itemId.includes(item.id)">
+                      <div class="round_btn" (click)="remove(i)">
+                        <mdb-icon fas icon="minus"></mdb-icon>
+                      </div>
+                      <h6 class="m-0 ff-medium px-2">{{item.quantity}}</h6>
+                      <div class="round_btn" (click)="add(i)">
+                        <mdb-icon fas icon="plus"></mdb-icon>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="no_data" *ngIf="productList.length == 0 && productsCalled == true">
+            <div class="empty" [ngStyle]="{'background-image':'url(assets/nodata.jpg)'}"></div>
+            <p> {{util.translate('Opps.. nothing found')}}</p>
+          </div>
+        </div>
+
+        <div class="card-body p-0" *ngIf="productsCalled == false">
+          <div *ngFor="let item of [1,2,3,4,5]" class="card_div_services">
+            <div class="resto_detail">
+              <div class="back_image">
+                <ngx-skeleton-loader appearance="circle"
+                  [theme]="{ 'border-radius': '5px', height: '50px',width:'100%'}">
+                </ngx-skeleton-loader>
+              </div>
+              <div style="margin-left: 20px;display: flex;flex-direction: column;">
+                <label class="res_name" style="margin: 0px;">
+                  <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'120px'}">
+                  </ngx-skeleton-loader>
+                </label>
+                <label class="res_location" style="margin: 0px;">
+                  <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+                  </ngx-skeleton-loader>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- shop -->
+
+    <!-- reviews -->
+    <div class="col-lg-12 px-lg-2" *ngIf="currentTab == '3'">
+      <div class="bg-white rounded shadow-sm">
+        <h6 class="h4-responsive ff-medium text-center pt-4 m-0">{{util.translate('Reviews')}}</h6>
+        <div class="card-body p-0" *ngIf="reviewsCalled == true ">
+          <div class="review-user"
+            *ngFor="let item of reviewList | paginate: {id:'pagin1', itemsPerPage:5, currentPage: page };let i = index; ">
+            <div class="review-profile bg-white px-3 py-3 border-bottom">
+              <div class="d-flex align-items-center p-0">
+                <div
+                  [ngStyle]="{'background-image':'url('+api.mediaURL + item.user.cover+'),url(assets/images/placeholder.jpg)'}"
+                  class="img-fluid rounded-circle">
+                </div>
+
+                <a class="ml-3 text-dark text-decoration-none w-100">
+                  <h6 class="h6 mb-2 ff-medium">{{item.user.first_name +' '+
+                    item.user.last_name}}</h6>
+                  <div class="d-flex mb-2">
+                    <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 1 ? 'orange':'grey'}">
+                    </mdb-icon>
+                    <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 2 ? 'orange':'grey'}">
+                    </mdb-icon>
+                    <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 3 ? 'orange':'grey'}">
+                    </mdb-icon>
+                    <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 4 ? 'orange':'grey'}">
+                    </mdb-icon>
+                    <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 5 ? 'orange':'grey'}">
+                    </mdb-icon>
+
+                  </div>
+                  <h6 class="h6 mb-2 small text-muted">{{item.created_at.substring(0,11)}}
+                  </h6>
+                </a>
+              </div>
+              <p class="text-muted mt-2 rf-6 rf-lg-1 m-0"> {{item.notes}} </p>
+            </div>
+          </div>
+
+          <div style="padding: 10px 0px;" *ngIf="reviewList?.length ">
+            <pagination-controls id="pagin1" (pageChange)="page = $event"></pagination-controls>
+          </div>
+        </div>
+
+        <div class="card-body p-0" *ngIf="reviewsCalled == true && reviewList.length == 0 ">
+          <div class="no_data">
+            <div class="empty" [ngStyle]="{'background-image':'url(assets/nodata.jpg)'}"></div>
+            <p> {{util.translate('Opps.. nothing found')}}</p>
+          </div>
+        </div>
+
+        <div class="card-body p-0" *ngIf="reviewsCalled == false">
+          <div *ngFor="let item of [1,2,3,4,5]" class="card_div_services">
+            <div class="resto_detail">
+              <div class="back_image">
+                <ngx-skeleton-loader appearance="circle"
+                  [theme]="{ 'border-radius': '5px', height: '50px',width:'100%'}">
+                </ngx-skeleton-loader>
+              </div>
+              <div style="margin-left: 20px;display: flex;flex-direction: column;">
+                <label class="res_name" style="margin: 0px;">
+                  <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'120px'}">
+                  </ngx-skeleton-loader>
+                </label>
+                <label class="res_location" style="margin: 0px;">
+                  <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+                  </ngx-skeleton-loader>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- reviews -->
+
+    <!-- overviews -->
+    <div class="col-lg-12 px-lg-2" *ngIf="currentTab == '4'">
+      <div class="bg-white rounded shadow-sm">
+        <h6 class="h4-responsive ff-medium text-center pt-4 m-0">{{util.translate('Overview')}}</h6>
+        <div class="card-body p-0">
+          <div class="px-3 py-3">
+            <p class="rf-6 rf-lg-1 ff-bold">{{util.translate('Descriptions')}}</p>
+            <p class="rf-6 rf-lg-1"> {{descriptions}} </p>
+            <p class="rf-6 rf-lg-1 ff-bold">{{util.translate('Contact Detail')}}</p>
+            <h6 class="rf-6 rf-lg-1"> {{email}} </h6>
+            <p class="rf-6 rf-lg-1">{{country_code}} {{mobile}} </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- overviews -->
+
+    <!-- gallary -->
+    <div class="col-lg-12 px-lg-2" *ngIf="currentTab == '5'">
+      <div class="bg-white rounded shadow-sm">
+        <h6 class="h4-responsive ff-medium text-center pt-4 m-0">{{util.translate('Photos')}}</h6>
+
+        <div class="card-body p-0">
+          <div class="service-cart">
+            <div class="px-3 py-3">
+              <div class="row m-1 g-2">
+                <div class="col-6 col-md-4 px-1 p-0 " *ngFor="let item of gallary">
+                  <div class="px-0 py-0 pb-2 rounded overflow-hidden shadow-sm ">
+                    <a>
+                      <div>
+                        <div
+                          [ngStyle]="{'background-image': 'url('+ api.mediaURL + item +'),url(assets/images/placeholder.jpg)'}"
+                          class="gallery-img">
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- gallary -->
+  </div>
+</div>
+
+<div class="fixed_cart" *ngIf="serviceCart.totalItemInCart > 0 && currentTab =='1'">
+  <div class="container">
+    <div class="flex_cart">
+      <label class="subTotal">{{util.translate('Your Services')}} ({{serviceCart.totalItemInCart}}) </label>
+      <div class="flxer">
+        <label class="subTotal" *ngIf="util.cside =='left'">{{util.translate('Subtotal')}}: {{util.currecny}}
+          {{serviceCart.totalPrice}}</label>
+        <label class="subTotal" *ngIf="util.cside =='right'">{{util.translate('Subtotal')}}:
+          {{serviceCart.totalPrice}}{{util.currecny}} </label>
+        <button mdbBtn class="place_btn" (click)="goToCheckout()">{{util.translate('Checkout')}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fixed_cart" *ngIf="productCart.cart?.length && currentTab =='2'">
+  <div class="container">
+    <div class="flex_cart">
+      <label class="subTotal">{{util.translate('Your Order')}} ({{productCart.cart.length}}) </label>
+      <div class="flxer">
+        <label class="subTotal" *ngIf="util.cside =='left'">{{util.translate('Subtotal')}}: {{util.currecny}}
+          {{productCart.totalPrice}}</label>
+        <label class="subTotal" *ngIf="util.cside =='right'">{{util.translate('Subtotal')}}:
+          {{productCart.totalPrice}}{{util.currecny}} </label>
+        <button mdbBtn class="place_btn" (click)="goToProductCheckout()">{{util.translate('Checkout')}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #serviceDetails="mdbModal" class="modal fade right" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true" style="z-index: 999999;">
+  <div class="modal-dialog modal-full-height modal-right" role="document"
+    style="margin: 0px;padding: 0px;height: 100%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="serviceDetails.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel"> {{serviceName}} </h4>
+      </div>
+      <div class="modal-body location_body" style="overflow: scroll;">
+        <div class="service-cart" *ngFor="let item of servicesList;let i = index;">
+          <div class="cart-items bg-white px-3 py-4 border-bottom">
+            <div class="d-flex align-items-center p-0">
+              <a><img
+                  [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}"
+                  class="img-fluid" /></a>
+              <a class="ml-3 text-dark text-decoration-none w-100">
+                <p class="head-text">{{item.name}}</p>
+                <p class="sub-text"> {{item.duration}}
+                  {{util.translate('Min.')}} </p>
+
+                <div class="d-flex align-items-center">
+                  <p class="h6 sub-text small m-0 mr-3">
+                    <del>
+                      <span *ngIf="util.currencySide == 'left'">
+                        {{util.currencySymbol}} {{item.price}} </span>
+                      <span *ngIf="util.currencySide == 'right'"> {{item.price}}
+                        {{util.currencySymbol}} </span>
+                    </del>
+                  </p>
+                  <p class="h6 f-primary m-0">
+                    <span class="ff-medium head-text" *ngIf="util.currencySide == 'left'"> {{util.currencySymbol}}
+                      {{item.off}} </span>
+                    <span class="ff-medium head-text" *ngIf="util.currencySide == 'right'"> {{item.off}}
+                      {{util.currencySymbol}} </span>
+                  </p>
+
+                  <div class="d-flex ml-auto">
+                    <i class="far fa-square" style="font-size: 2rem;color:gray;" *ngIf="item.isChecked == false"
+                      (click)="addService(item,i)"></i>
+                    <i class="far fa-check-square" style="font-size: 2rem;color:gray;" *ngIf="item.isChecked == true"
+                      (click)="removeService(item,i)"></i>
+
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer custome-footer" *ngIf="serviceCart.totalItemInCart > 0">
+        <div class="footer-checkout" (click)="goToCheckout()">
+          <div>
+            {{serviceCart.totalItemInCart}} {{util.translate("Items")}} {{serviceCart.totalPrice}}
+          </div>
+          <div>
+            <p>{{util.translate("Book Service")}} </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #packageDetails="mdbModal" class="modal fade right" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true" style="z-index: 999999;">
+  <div class="modal-dialog modal-full-height modal-right" role="document"
+    style="margin: 0px;padding: 0px;height: 100%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="packageDetails.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel"> {{packageName}} </h4>
+      </div>
+      <div class="modal-body location_body" style="overflow: scroll;">
+        <div class="package_cover"
+          [ngStyle]="{'background-image': 'url('+ api.mediaURL + packageCover +'),url(assets/images/placeholder.jpg)'}">
+        </div>
+        <h6 class="text-muted ff-medium pt-2 pb-2 rf-6 m-0 rf-lg-1">
+          {{util.translate("Services Included")}}
+        </h6>
+        <div *ngFor="let item of packageServices"
+          style="display: flex;flex-direction: row;justify-content: space-between;font-size: 12px;">
+          <p> {{item.name}} </p>
+          <p> {{item.price}} </p>
+        </div>
+
+        <h6 class="text-muted ff-medium pt-2 pb-2 rf-6 m-0 rf-lg-1">
+          {{util.translate("Package Specialist")}}
+        </h6>
+        <div
+          style="display: flex;flex-direction: row;align-items: center;justify-content: start;padding-top: 10px;overflow: scroll; ">
+          <div *ngFor="let item of packageSpecialist" style="margin: 0px 5px;">
+            <div class="rounded-4 shadow-5 specialist"
+              [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}">
+            </div>
+            <p class="specialist_name"> {{item.first_name}} <br> {{item.last_name}} </p>
+          </div>
+        </div>
+
+        <div style="height: 30px;"></div>
+
+        <div style="display: flex;flex-direction: row;justify-content: space-between;font-size: 12px;">
+          <p> {{util.translate("Duration")}} </p>
+          <p> {{packageDuration}} {{util.translate("Min.")}} </p>
+        </div>
+
+        <div style="display: flex;flex-direction: row;justify-content: space-between;font-size: 12px;">
+          <p> {{util.translate("Price")}} </p>
+          <div style="display: flex;align-items: center;">
+            <p class="h6 sub-text small m-0 mr-3" *ngIf="packageDiscount > 0">
+              <del>
+                <span *ngIf="util.currencySide == 'left'" class="ff-medium head-text">
+                  {{util.currencySymbol}} {{packagePrice}} </span>
+                <span *ngIf="util.currencySide == 'right'" class="ff-medium head-text"> {{packagePrice}}
+                  {{util.currencySymbol}} </span>
+              </del>
+            </p>
+            <p class="h6 f-primary m-0">
+              <span class="ff-medium head-text" *ngIf="util.currencySide == 'left'"> {{util.currencySymbol}}
+                {{packageOff}} </span>
+              <span class="ff-medium head-text" *ngIf="util.currencySide == 'right'"> {{packageOff}}
+                {{util.currencySymbol}} </span>
+            </p>
+          </div>
+        </div>
+
+        <h6 class="text-muted ff-medium pt-2 pb-2 rf-6 m-0 rf-lg-1">
+          {{util.translate("About")}}
+        </h6>
+        <p style="font-size: 12px;"> {{packageDescriptions}} </p>
+
+        <h6 class="text-muted ff-medium pt-2 pb-2 rf-6 m-0 rf-lg-1">
+          {{util.translate("Photos")}}
+        </h6>
+        <div class="row">
+          <div class="col-lg-4" *ngFor="let image of packageImages">
+            <div class="packageGallery"
+              [ngStyle]="{'background-image': 'url('+ api.mediaURL + image +'),url(assets/images/placeholder.jpg)'}">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer custome-footer">
+        <div class="footer-checkout-package" *ngIf="isBooked == false" (click)="addPackage()">
+          <div>
+            {{util.translate("Add Package")}}
+          </div>
+        </div>
+        <div class="footer-checkout-package" *ngIf="isBooked == true" (click)="removePackage()">
+          <div>
+            {{util.translate("Remove Package")}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

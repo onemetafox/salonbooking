@@ -1,0 +1,92 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<footer class="page-footer font-small back_footer" style="padding-top: 1px;">
+
+  <div class="container text-center text-md-left mt-5">
+    <div class="row" style="border-bottom: 1px solid white">
+
+      <div class="col-md-4 col-lg-4 col-xl-3 mb-4" style="text-align: initial;">
+
+        <label class="footer_lbl">{{util.app_name}} </label>
+
+        <div style="display: flex;flex-direction: column ;justify-content: space-between;">
+          <a [href]="util.apple_appstore" target="_blank">
+            <img src="assets/imgs/appstore.svg" alt="" style="width: 100%;height: 100px;">
+          </a>
+          <a [href]="util.google_playstore" target="_blank">
+            <img src="assets/imgs/google.svg" alt="" style="width: 100%;height: 100px;">
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg-4 col-xl-2 mx-auto mb-4" style="text-align: initial;">
+
+        <label class="footer_lbl">{{util.translate('Important Links')}}</label>
+
+        <div class="flex_box" (click)="goToAbout()">
+          <a>{{util.translate('About')}}</a>
+        </div>
+        <div class="flex_box" (click)="blogs()">
+          <a>{{util.translate('The Blogs')}}</a>
+        </div>
+        <div class="flex_box" (click)="goToContact()">
+          <a>{{util.translate('Contact Us')}}</a>
+        </div>
+        <div class="flex_box" (click)="goToFaqs()">
+          <a>{{util.translate('FAQ')}}</a>
+        </div>
+        <div class="flex_box" (click)="goToNotice()">
+          <a>{{util.translate('Legal Mentions')}}</a>
+        </div>
+        <div class="flex_box" (click)="goToCookies()">
+          <a>{{util.translate('Cookies')}}</a>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mb-md-0 mb-4" style="text-align: initial;" *ngIf="util.general">
+        <label class="footer_lbl">{{util.translate('Contact')}}</label>
+
+        <div class="flex_box">
+          <a>
+            {{util.general.city}} - {{util.general.country}} - {{util.general.zip}}
+          </a>
+        </div>
+
+        <div class="flex_box">
+          <a>{{util.general.mobile}} </a>
+        </div>
+
+        <div class="flex_box">
+          <a>{{util.general.email}} </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-copyright text-center py-3" style="background: rgba(0,0,0,0.5); text-align: initial;">
+    <div class="container">
+      <label>© {{getCopyright()}} {{util.translate('Copyright')}}:<a [href]="util.websiteURL">
+          {{util.websiteName}}</a></label>
+      <div>
+        <a [href]="util.facebook_link" target="_blank" rel="noopener noreferrer">
+          <mdb-icon fab icon="facebook-f"></mdb-icon>
+        </a>
+        <a [href]="util.instagram_link" target="_blank" rel="noopener noreferrer">
+          <mdb-icon fab icon="instagram"></mdb-icon>
+        </a>
+        <a [href]="util.twitter_link" target="_blank" rel="noopener noreferrer">
+          <mdb-icon fab icon="twitter"></mdb-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+<!-- Footer -->

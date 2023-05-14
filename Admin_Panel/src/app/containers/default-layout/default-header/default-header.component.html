@@ -1,0 +1,56 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<!--<c-header class="mb-4 d-print-none" position="sticky">-->
+<ng-container>
+  <c-container [fluid]="true">
+    <button toggle="visible" cHeaderToggler [cSidebarToggle]="sidebarId" class="ps-1">
+      <svg cIcon name="cilMenu" size="lg"></svg>
+    </button>
+    <c-header-nav class="d-none d-lg-flex me-auto">
+      <c-nav-item>
+        <a cNavLink routerLink="/dashboard" routerLinkActive="active">
+          {{util.translate("Dashboard")}}
+        </a>
+      </c-nav-item>
+
+    </c-header-nav>
+
+    <c-header-nav class="d-none d-lg-flex">
+
+    </c-header-nav>
+    <c-header-nav class="ms-3">
+      <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
+    </c-header-nav>
+
+  </c-container>
+  <c-header-divider></c-header-divider>
+  <c-container [fluid]="true">
+    <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
+  </c-container>
+</ng-container>
+<!--</c-header>-->
+
+<ng-template #userDropdown>
+  <c-dropdown alignment="end" variant="nav-item">
+    <button cButton color="" [caret]="false" cDropdownToggle class="py-0">
+      <c-avatar cTextColor="primary" shape="rounded-1" size="md" src="./assets/img/dummy.jpeg" status="success">
+      </c-avatar>
+    </button>
+    <ul cDropdownMenu class="pt-0 pr-5 w-auto">
+
+      <li>
+        <a cDropdownItem (click)="logout()">
+          <svg cIcon class="me-2" name="cilLockLocked"></svg>
+          {{util.translate("Logout")}}
+        </a>
+      </li>
+      <li></li>
+    </ul>
+  </c-dropdown>
+</ng-template>

@@ -1,0 +1,146 @@
+/*
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+*/
+/* You can add global styles to this file, and also import other style files */
+// If you want to override variables do it here
+@import "variables";
+
+$enable-ltr: true;
+$enable-rtl: true;
+
+// Import styles with default layout.
+@import "~@coreui/coreui/scss/coreui";
+
+// Import Chart.js custom tooltips styles
+@import "~@coreui/chartjs/scss/coreui-chartjs";
+
+// perfect scrollbar theming for use with [perfectScrollbar] directive
+//@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+
+@import "layout";
+
+// Some temp fixes
+@import "fixes";
+
+// Prism.js
+@import "examples";
+
+// If you want to add something do it here
+@import "custom";
+
+.form-group {
+  margin: 5px 0px;
+}
+
+.validator_error {
+  border: 1px solid red;
+}
+
+.btn {
+  color: white !important;
+}
+
+.badge {
+  cursor: pointer !important;
+}
+
+.create_btn {
+  color: white;
+}
+
+.flex_row {
+  margin-bottom: 20px !important;
+}
+
+label {
+  font-size: 14px;
+}
+
+.logoContainer {
+  width: 140px;
+  height: 151px;
+  margin: 15px auto 0 auto;
+  padding: 11px 10px 21px 10px;
+  text-align: center;
+  line-height: 120px;
+}
+
+.logoContainer img {
+  max-width: 100%;
+}
+
+.fileContainer {
+  background: #ccc;
+  /* you can give it background img as well or any style you want*/
+  width: 202px;
+  height: 31px;
+  overflow: hidden;
+  position: relative;
+  font-size: 16px;
+  line-height: 31px;
+  color: #434343;
+  padding: 0px 41px 0 53px;
+  margin: 0 auto 10px auto;
+  cursor: pointer !important;
+}
+
+.fileContainer span {
+  overflow: hidden;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.fileContainer input[type="file"] {
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  cursor: pointer;
+}
+
+.text-heler {
+  font-size: 10px;
+  font-family: sans-serif;
+  text-align: center;
+  color: #63c2de;
+}
+
+.card-body {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+}
+
+.card-body::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex_row_align {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0px;
+}

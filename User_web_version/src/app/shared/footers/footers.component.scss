@@ -1,0 +1,161 @@
+/*
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+*/
+.back_footer {
+  background: #101010;
+}
+
+.footer_lbl {
+  padding-bottom: 5px;
+  width: max-content;
+  color: grey;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.detail_content {
+  line-height: 26px;
+  text-align: left;
+  font-weight: 400;
+  color: white;
+}
+
+.flex_box {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+
+  mdb-icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+
+  a {
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  a:hover {
+    font-weight: 600;
+  }
+
+  label {
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+
+.city_lbl {
+  width: 100%;
+  padding-left: 30px;
+  padding-bottom: 16px;
+}
+
+.social_div {
+  mdb-icon {
+    font-size: 22px;
+  }
+}
+
+.flex_div {
+  display: flex;
+  padding: 15px;
+
+  label {
+    display: block;
+    margin: 0;
+  }
+
+  .food_image {
+    width: 100px;
+    height: 90px;
+    min-width: 100px;
+    border-radius: 5px;
+  }
+
+  .food_detail {
+    padding-left: 10px;
+
+    .food_name {
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .food_desc {
+      color: gray;
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    .btn_flex {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+
+      .food_price {
+        font-weight: 500;
+        font-size: 16px;
+      }
+
+      .quantity_div {
+        display: flex;
+        align-items: center;
+        // border: 1px solid #45C261;
+        border-radius: 3px;
+
+        .green_div {
+          height: 30px;
+          width: 30px;
+          background: white;
+          border-radius: 5px;
+          position: relative;
+
+          mdb-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #45c261;
+          }
+        }
+
+        label {
+          font-weight: 500;
+          font-size: 18px;
+          margin-left: 15px;
+          margin-right: 15px;
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+}
+
+.footer-copyright {
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    mdb-icon {
+      font-size: 20px;
+      margin-left: 20px;
+    }
+
+    mdb-icon:hover {
+      color: white;
+    }
+  }
+}
+
+.modal-title {
+  font-weight: 500 !important;
+}

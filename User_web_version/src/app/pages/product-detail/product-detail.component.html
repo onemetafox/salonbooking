@@ -1,0 +1,253 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<div *ngIf="apiCalled ==false" class="centerItem">
+  <div class="spinner-border text-success" role="status">
+    <span class="sr-only">{{util.translate('Loading...')}}</span>
+  </div>
+</div>
+<div class="container" *ngIf="apiCalled == true">
+  <div class="row mt-5 mb-4">
+    <div class="col-lg-6 ">
+      <div class="recommend-slider mb-3 sticky_sidebar">
+
+        <owl-carousel-o [options]="customOptions">
+          <ng-container *ngFor="let slide of [1,2,3,4]">
+            <ng-template carouselSlide>
+              <div class="product-detail-img rounded overflow-hidden">
+                <a>
+                  <div
+                    [ngStyle]="{'background-image': 'url('+ api.mediaURL + productCover +'),url(assets/images/placeholder.jpg)'}"
+                    class="product-img "></div>
+                </a>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+
+    </div>
+    <div class="col-lg-6">
+      <div class="p-4 bg-white rounded shadow-sm">
+        <div class="pt-0">
+          <h5 class="ff-bold mb-2">{{productName}}</h5>
+          <div class="d-flex align-items-center">
+            <h6 class="f-primary mb-0 head-text mr-3">
+              <span class="ff-bold head-text" *ngIf="util.currencySide == 'left'"> {{util.currencySymbol}}
+                {{originalPrice}} </span>
+              <span class="ff-bold head-text" *ngIf="util.currencySide == 'right'"> {{originalPrice}}
+                {{util.currencySymbol}} </span>
+            </h6>
+
+            <h6 class="h6 mb-0 small pr-3 text-muted">
+              <del>
+                <span *ngIf="util.currencySide == 'left'"> {{util.currencySymbol}} {{sellPrice}} </span>
+                <span *ngIf="util.currencySide == 'right'"> {{sellPrice}} {{util.currencySymbol}}
+                </span>
+              </del>
+            </h6>
+          </div>
+          <a>
+            <div class="d-flex my-2">
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 1 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 2 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 3 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 4 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: rating >= 5 ? 'orange':'grey'}">
+              </mdb-icon>
+              <h6 class="text-muted ff-medium pl-2 rf-6 m-0 rf-lg-1">{{totalRating}}</h6>
+            </div>
+          </a>
+        </div>
+
+        <div class="pt-2">
+          <div>
+            <p class="ff-bold h6 mb-2">{{util.translate('descriptions')}}</p>
+            <p class="text-muted small my-2"> {{descriptions}} </p>
+            <p class="ff-bold h6 mb-2">{{util.translate('Highlight')}}</p>
+            <p class="text-muted small my-2"> {{highlight}} </p>
+            <p class="ff-bold h6 mb-2">{{util.translate('Disclaimer')}}</p>
+            <p class="text-muted small my-2"> {{disclaimer}} </p>
+            <p class="ff-bold h6 mb-2">{{util.translate('Sold By')}}</p>
+            <p class="text-muted small my-2"> {{soldBy}} </p>
+
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+              <button type="button" (click)="addToCart()" *ngIf="productInfo.quantity == 0" mdbBtn
+                class="rounded text-white m-0 mt-2 py-2 px-4 btn-color"
+                mdbWavesEffect>{{util.translate('ADD')}}</button>
+
+
+              <div class="qty_flex" *ngIf="productCart.itemId.includes(productInfo.id)">
+                <div class="round_btn" (click)="remove()">
+                  <mdb-icon fas icon="minus"></mdb-icon>
+                </div>
+                <label>{{getQuanity(productInfo.id)}}</label>
+                <div class="round_btn" (click)="add()">
+                  <mdb-icon fas icon="plus"></mdb-icon>
+                </div>
+              </div>
+
+              <button type="button" (click)="goToProductCheckout()" mdbBtn
+                class="rounded text-white m-0 mt-2 py-2 px-4 btn-color"
+                mdbWavesEffect>{{util.translate('Checkout')}}</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 mb-4 ">
+      <div>
+        <div>
+          <ul class="nav d-flex flex-row rounded px-2 py-2 product-tab">
+            <li (click)="currentTab = '1'"> <a class="nav-link p-3 rounded mb-2  text-dark"
+                [ngClass]="currentTab =='1' ? 'active':''">{{util.translate('Related Products')}} </a>
+            </li>
+            <li (click)="currentTab = '2'"> <a class="nav-link p-3 rounded mb-2 text-dark"
+                [ngClass]="currentTab =='2' ? 'active':''">{{util.translate('Reviews')}} </a> </li>
+            <li (click)="currentTab = '3'"> <a class="nav-link p-3 rounded mb-2 text-dark"
+                [ngClass]="currentTab =='3' ? 'active':''">{{util.translate('Images')}} </a> </li>
+          </ul>
+        </div>
+      </div>
+
+      <section *ngIf="currentTab == '1'">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-10 col-xl-8 text-center">
+            <h5 class="mb-4">{{util.translate('Related Products')}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-md-4 col-lg-3 my-2 px-2" *ngFor="let item of relatedProductsList">
+            <div class="px-0 rounded overflow-hidden shadow-sm animate border">
+              <a class="text-dark">
+                <div class="product-list text-center pb-3">
+                  <div
+                    [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}"
+                    class="bg-img mb-3 "></div>
+                  <h5 class="head-text text-black ff-medium px-2 text-overflow">{{item.name}}</h5>
+                  <div class="d-flex justify-content-center align-item-center mb-2">
+                    <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 1 ? 'orange':'grey'}">
+                    </mdb-icon>
+                    <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 2 ? 'orange':'grey'}">
+                    </mdb-icon>
+                    <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 3 ? 'orange':'grey'}">
+                    </mdb-icon>
+                    <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 4 ? 'orange':'grey'}">
+                    </mdb-icon>
+                    <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 5 ? 'orange':'grey'}">
+                    </mdb-icon>
+                    <h6 class="text-muted ff-medium pl-2 rf-6 m-0 rf-lg-1">{{item.total_rating}}
+                    </h6>
+                  </div>
+                  <div class="d-flex justify-content-center align-items-center mx-3">
+                    <h6 class="h6 mb-0 pr-3 text-muted small">
+                      <del>
+                        <span *ngIf="util.currencySide == 'left'"> {{util.currencySymbol}}
+                          {{item.original_price}} </span>
+                        <span *ngIf="util.currencySide == 'right'"> {{item.original_price}}
+                          {{util.currencySymbol}} </span>
+                      </del>
+                    </h6>
+                    <h6 class="head-text f-primary ff-bold mb-0">
+                      <span class="ff-bold head-text" *ngIf="util.currencySide == 'left'">
+                        {{util.currencySymbol}}
+                        {{item.sell_price}} </span>
+                      <span class="ff-bold head-text" *ngIf="util.currencySide == 'right'">
+                        {{item.sell_price}}
+                        {{util.currencySymbol}} </span>
+                    </h6>
+                  </div>
+                  <button type="button" (click)="openProduct(item.id)" mdbBtn
+                    class="rounded text-white m-0 mt-2 py-2 px-3 btn-color"
+                    mdbWavesEffect>{{util.translate('View')}}</button>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section *ngIf="currentTab == '2'">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-10 col-xl-8 text-center">
+            <h5 class="mb-4">{{util.translate('Reviews')}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-6 my-2 px-2" *ngFor="let item of reviewList">
+            <div class="card-body p-0 ">
+              <div class="review-user">
+                <div class="review-profile bg-white px-3 py-3 shadow-lg">
+                  <div class="d-flex align-items-center p-0">
+                    <div
+                      [ngStyle]="{'background-image':'url('+api.mediaURL + item.user.cover+'),url(assets/images/placeholder.jpg)'}"
+                      class="img-fluid rounded-circle">
+                    </div>
+                    <a class="ml-3 text-dark text-decoration-none w-100">
+                      <h6 class="h6 mb-2 ff-bold">{{item.user.first_name +' '+
+                        item.user.last_name}}</h6>
+                      <div class="d-flex mb-2">
+                        <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 1 ? 'orange':'grey'}">
+                        </mdb-icon>
+                        <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 2 ? 'orange':'grey'}">
+                        </mdb-icon>
+                        <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 3 ? 'orange':'grey'}">
+                        </mdb-icon>
+                        <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 4 ? 'orange':'grey'}">
+                        </mdb-icon>
+                        <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 5 ? 'orange':'grey'}">
+                        </mdb-icon>
+                        <h6 class="text-muted ff-medium pl-2 rf-6 m-0 rf-lg-1">{{item.rating}}
+                        </h6>
+                      </div>
+                      <h6 class="h6 mb-2 text-muted">{{item.created_at.substring(0,11)}}</h6>
+                    </a>
+                  </div>
+                  <p class="dark-grey-text mt-2">
+                    <i class="fas fa-quote-left rf-6 rf-lg pe-2 mr-2"></i>{{item.notes}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section *ngIf="currentTab == '3'">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-10 col-xl-8 text-center">
+            <h5 class="mb-4">{{util.translate('Images')}}</h5>
+          </div>
+        </div>
+        <div class="row m-1 g-2">
+          <div class="col-3 col-md-3 px-1 p-0 " *ngFor="let item of images">
+            <div class="px-0 py-0 rounded overflow-hidden">
+              <a>
+                <div>
+                  <div
+                    [ngStyle]="{'background-image': 'url('+ api.mediaURL + item +'),url(assets/images/placeholder.jpg)'}"
+                    class="gallery-img mb-2">
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>

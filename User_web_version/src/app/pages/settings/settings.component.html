@@ -1,0 +1,505 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<div mdbModal #addressFromMap="mdbModal" class="modal fade center" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 9999;">
+  <div class="modal-dialog modal-notify modal-success modal-dialog-scrollable" role="document">
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Body-->
+      <div class="modal-body">
+        <div #map id="map" class="map"></div>
+        <div>
+          <h3>{{util.translate('Set your delivery location')}}</h3>
+          <p>{{util.translate('DELIVERY AREA')}}</p>
+          <div class="borders">
+            <p class="address">
+              <mdb-icon fas icon="check-circle" color="primary"></mdb-icon>
+              {{ (address.length>50)? (address | slice:0:50)+'..':(address) }}
+            </p>
+            <p class="changeBtn" mdbWavesEffect (click)="changeAddress()">{{util.translate('Change')}}</p>
+          </div>
+          <div *ngIf="addressSelected == true">
+            <div class="md-form">
+              <input id="house" style="height: auto !important;" [(ngModel)]="house" class="form-control" type="text"
+                mdbInput>
+              <label for="house"> {{util.translate('HOUSE / FLAT NO')}} </label>
+            </div>
+            <div class="md-form">
+              <input id="landmark" style="height: auto !important;" [(ngModel)]="landmark" class="form-control"
+                type="text" mdbInput>
+              <label for="landmark"> {{util.translate('LANDMARK')}} </label>
+            </div>
+            <div class="md-form">
+              <input id="pincode" style="height: auto !important;" [(ngModel)]="pincode" class="form-control"
+                type="text" mdbInput>
+              <label for="pincode"> {{util.translate('Pincode')}} </label>
+            </div>
+
+            <div class="md-form">
+              <select class="browser-default custom-select" [(ngModel)]="title">
+                <option [value]="0"> {{util.translate('HOME')}} </option>
+                <option [value]="1"> {{util.translate('WORK')}} </option>
+                <option [value]="2"> {{util.translate('OTHER')}} </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" *ngIf="addressSelected == false" mdbBtn color="danger" class="waves-light" mdbWavesEffect
+          (click)="chooseFromMaps()">
+          {{util.translate('Confirm and Proceed')}}
+        </a>
+        <a type="button" *ngIf="addressSelected == true && editClicked ==false" mdbBtn color="danger"
+          class="waves-light" mdbWavesEffect (click)="addAddress()">
+          {{util.translate('Add Address')}}
+        </a>
+        <a type="button" *ngIf="editClicked ==true" mdbBtn color="danger" class="waves-light" mdbWavesEffect
+          (click)="editMyAddress()">
+          {{util.translate('Edit')}}
+        </a>
+        <a type="button" mdbBtn color="danger" outline="true" class="waves-light" mdbWavesEffect data-dismiss="modal"
+          (click)="addressFromMap.hide()"> {{util.translate('Cancel')}} </a>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+
+<div mdbModal #changedPlace="mdbModal" class="modal fade center" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 9999;">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Body-->
+
+      <div class="modal-body">
+        <div class="headers">
+          <p class="text">{{util.translate('Search Location')}}</p>
+          <mdb-icon fas mdbWavesEffect (click)="changedPlace.hide();addressFromMap.show()" icon="times-circle">
+          </mdb-icon>
+        </div>
+        <div class="md-form">
+          <input id="cnum" style="height: auto !important;" [(ngModel)]="query" [placeholder]="util.translate('Search')"
+            class="form-control" type="text" mdbInput (ngModelChange)="onSearchChange($event)">
+        </div>
+        <div class="addressList">
+          <div class="select_addr" *ngFor="let item of autocompleteItems1" (click)="selectSearchResult1(item)">
+            <mdb-icon fas icon="map-marker-alt" style="color: gray; margin-right: 10px;"></mdb-icon>
+            {{ item.description }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="container back_image" [style.backgroundImage]="' url(assets/imgs/back.png) '"
+  *ngIf="util.deviceType=='desktop'">
+  <div class="overlay">
+    <div class="profiles">
+      <div class="cover" [ngStyle]="{'background-image':'url('+ getProfile()+'),url(assets/icon.png)'}">
+
+      </div>
+      <div class="user_details" *ngIf="util.userInfo">
+        <label class="header">{{util.userInfo.first_name +' ' +util.userInfo.last_name}} </label>
+        <label class="details">{{util.userInfo.email}} </label>
+        <label class="details">{{util.userInfo.country_code +' ' +util.userInfo.mobile}} </label>
+      </div>
+    </div>
+    <div class="more_section">
+      <div class="btn" mdbWavesEffect (click)="editProfileClick = true">
+        {{util.translate('Edit Profile')}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container main_div">
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12" *ngIf="util.deviceType=='desktop'">
+      <p class="head">{{util.translate('Activity')}}</p>
+      <div [ngClass]="tabId =='profile' ?'active_btn':'normal_btn'" (click)="openLink('profile')">
+        {{util.translate('Profile')}}</div>
+      <div [ngClass]="tabId =='appointment' ?'active_btn':'normal_btn'" (click)="openLink('appointment')">
+        {{util.translate('Appointment History')}}</div>
+      <div [ngClass]="tabId =='product-order' ?'active_btn':'normal_btn'" (click)="openLink('product-order')">
+        {{util.translate('Orders History')}}</div>
+      <div [ngClass]="tabId =='address' ?'active_btn':'normal_btn'" (click)="openLink('address')">
+        {{util.translate('My addresses')}}</div>
+    </div>
+    <div class="col-md-9 col-sm-6 col-xs-12">
+      <p class="header" *ngIf="tabId =='profile'">{{util.translate('User Informations')}}</p>
+      <p class="header" *ngIf="tabId =='appointment'">{{util.translate('Appointment History')}}</p>
+      <p class="header" *ngIf="tabId =='product-order'">{{util.translate('Orders History')}}</p>
+      <p class="header" *ngIf="tabId =='address'">{{util.translate('My addresses')}}</p>
+
+      <div *ngIf="tabId =='profile'">
+        <div class="edit_profile">
+          <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-12" *ngIf="util.userInfo">
+
+                  <div class="round_image"
+                    [ngStyle]="{'background-image':'url('+ getProfile()+'),url(assets/icon.png)'}">
+                    <label class="green_box" for="file-input">
+                      <mdb-icon fas icon="pencil-alt" class="pencil_icn"></mdb-icon>
+                      <input id="file-input" (change)="preview_banner($event.target.files)" type="file" />
+                    </label>
+                  </div>
+
+                  <label class="title_text">{{util.userInfo.first_name +' '
+                    +util.userInfo.last_name}}</label>
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label class="hint_lbl">{{util.translate('First Name')}}</label>
+                      <input mdbInput type="text" [disabled]="!editProfileClick" id="form1" class="form-control"
+                        [(ngModel)]="first_name">
+                    </div>
+                    <div class="col-lg-6">
+                      <label class="hint_lbl">{{util.translate('Last Name')}}</label>
+                      <input mdbInput type="text" [disabled]="!editProfileClick" id="form1" class="form-control"
+                        [(ngModel)]="last_name">
+                    </div>
+                    <div class="col-lg-6">
+                      <label class="hint_lbl">{{util.translate('Gender')}}</label>
+                      <select [(ngModel)]="gender" [disabled]="!editProfileClick" type="text" required
+                        style="border: 1px solid lightgray;width: 100%;">
+                        <option value="1"> {{util.translate('Male')}}</option>
+                        <option value="0"> {{util.translate('Female')}} </option>
+                        <option value="2"> {{util.translate('Others')}} </option>
+                      </select>
+                    </div>
+                    <div class="col-lg-6">
+                      <label class="hint_lbl">{{util.translate('Phone Number')}}</label>
+                      <input mdbInput type="text" [disabled]="!editProfileClick" id="form1" class="form-control"
+                        [(ngModel)]="mobile">
+                    </div>
+
+                    <div class="col-lg-12" style="text-align: center;" *ngIf="editProfileClick">
+                      <button mdbBtn type="button" class="round_btn" (click)="updateProfile()"
+                        mdbWavesEffect>{{util.translate('Save')}}</button>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2"></div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="tabId =='appointment'">
+        <div class="card_div"
+          *ngFor="let item of myOrders | paginate: {id:'pagin1', itemsPerPage:5, currentPage: page };let i = index;"
+          (click)="openAppointments(item.id)">
+
+          <div class="resto_detail" *ngIf="item.freelancer_id == 0">
+            <div class="back_image"
+              [ngStyle]="{'background-image':'url('+api.mediaURL+item.salonInfo.cover+'),url(assets/images/placeholder.png)'}">
+            </div>
+            <div style="margin-left: 20px;display: flex;flex-direction: column;">
+              <label class="res_name" style="margin: 0px;">{{item.salonInfo.name}}</label>
+            </div>
+          </div>
+
+          <div class="resto_detail" *ngIf="item.salon_id == 0">
+            <div class="back_image"
+              [ngStyle]="{'background-image':'url('+api.mediaURL+item.individualInfo.background+'),url(assets/images/placeholder.png)'}">
+            </div>
+            <div style="margin-left: 20px;display: flex;flex-direction: column;">
+              <label class="res_name" style="margin: 0px;">{{item.individualInfo.first_name +' '+
+                item.individualInfo.last_name}}</label>
+            </div>
+          </div>
+
+          <div class="line_div"></div>
+          <div class="order_detail">
+            <label class="head_gray"
+              *ngIf="item && item.items && item.items.services && item.items.services.length >0">{{util.translate('Services')}}</label>
+            <div class="small_lbl" *ngIf="item && item.items && item.items.services && item.items.services.length >0">
+              <div *ngFor="let sub of item.items.services" class="mb-3">
+                <div class="d-flex align-items-center">
+                  <p class="item-name text-uppercase"
+                    style="margin: 0px !important;font-size: 12px;font-family: 'bold';">{{sub.name}}</p>
+                  <p *ngIf="sub.discount == 0" style="margin: 0px !important;">
+                    <span *ngIf="util.currencySide == 'left'"> - {{util.currencySymbol}}
+                      {{sub.price}}</span>
+                    <span *ngIf="util.currencySide == 'right'">
+                      - {{sub.price}}
+                      {{util.currencySymbol}}</span>
+                  </p>
+                  <p *ngIf="sub.discount > 0" style="margin: 0px !important;">
+                    <span *ngIf="util.currencySide == 'left'"> - {{util.currencySymbol}}
+                      {{sub.off}}</span>
+                    <span *ngIf="util.currencySide == 'right'">
+                      - {{sub.off}}
+                      {{util.currencySymbol}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <label class="head_gray"
+              *ngIf="item && item.items && item.items.packages && item.items.packages.length >0">{{util.translate('Packages')}}</label>
+            <div class="small_lbl" *ngIf="item && item.items && item.items.packages && item.items.packages.length >0">
+              <div *ngFor="let sub of item.items.packages" class="mb-3">
+                <div class="d-flex align-items-start">
+                  <div class="item-name text-uppercase" style="margin: 0px !important;">
+                    <p style="font-size: 12px;font-family: 'bold';">{{sub.name}}</p>
+                    <p *ngFor="let subService of sub.services" style="font-size: 10px;"> - {{subService.name}}
+                    </p>
+                  </div>
+                  <p *ngIf="sub.discount == 0" style="margin: 0px !important;font-size: 12px;">
+                    <span *ngIf="util.currencySide == 'left'" style="font-family: 'bold';"> - {{util.currencySymbol}}
+                      {{sub.price}}</span>
+                    <span *ngIf="util.currencySide == 'right'" style="font-family: 'bold';">
+                      - {{sub.price}}
+                      {{util.currencySymbol}}</span>
+                  </p>
+                  <p *ngIf="sub.discount > 0" style="margin: 0px !important;font-size: 12px;">
+                    <span *ngIf="util.currencySide == 'left'" style="font-family: 'bold';"> - {{util.currencySymbol}}
+                      {{sub.off}}</span>
+                    <span *ngIf="util.currencySide == 'right'" style="font-family: 'bold';">
+                      - {{sub.off}}
+                      {{util.currencySymbol}}</span>
+                  </p>
+
+                </div>
+              </div>
+            </div>
+
+            <label class="head_gray">{{util.translate('Appointments Date')}}</label>
+            <label class="small_lbl">{{getDate(item.save_date)}} {{item.slot}} </label>
+            <label class="head_gray">{{util.translate('TOTAL AMOUNT')}}</label>
+            <label class="small_lbl" *ngIf="util.cside =='left'"> {{util.currecny}}
+              {{item.grand_total}}</label>
+            <label class="small_lbl" *ngIf="util.cside =='right'"> {{item.grand_total}} {{util.currecny}}
+            </label>
+          </div>
+
+          <div class="line_div"></div>
+
+          <div class="status_detail" *ngIf="item.status == 4">
+            <div class="deliver_div">
+              {{util.translate('Completed')}}
+            </div>
+          </div>
+          <div class="status_detail" *ngIf="item.status == 5 || item.status == 6">
+            <div class="deliver_div">
+              {{util.translate('Your Appointments is')}} {{getStatus(item.status)}}
+            </div>
+          </div>
+          <div class="status_detail" *ngIf="item.status == 7 || item.status == 8">
+            <div class="deliver_div">
+              {{util.translate('Your Appointments is')}} {{getStatus(item.status)}}
+            </div>
+          </div>
+          <div class="status_detail"
+            *ngIf="item.status == 0 || item.status == 1 || item.status == 2 || item.status == 3">
+            <div class="deliver_div">
+              {{util.translate('Your Appointments is')}} {{getStatus(item.status)}}
+            </div>
+
+          </div>
+        </div>
+        <div class="has-text-centered" *ngIf="myOrders?.length ">
+          <pagination-controls id="pagin1" (pageChange)="page = $event"></pagination-controls>
+        </div>
+
+        <div *ngFor="let item of dummy" class="card_div">
+          <div class="resto_detail">
+            <div class="back_image">
+              <ngx-skeleton-loader appearance="circle" [theme]="{ 'border-radius': '5px', height: '50px',width:'100%'}">
+              </ngx-skeleton-loader>
+            </div>
+            <div style="margin-left: 20px;display: flex;flex-direction: column;">
+              <label class="res_name" style="margin: 0px;">
+                <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'120px'}">
+                </ngx-skeleton-loader>
+              </label>
+              <label class="res_location" style="margin: 0px;">
+                <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+                </ngx-skeleton-loader>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="tabId =='product-order'">
+        <div class="card_div"
+          *ngFor="let item of orderList | paginate: {id:'pagin1', itemsPerPage:5, currentPage: page };let i = index;"
+          (click)="openOrderDetails(item.id)">
+
+          <div class="resto_detail" *ngIf="item.type == 'individual'">
+            <div class="back_image"
+              [ngStyle]="{'background-image':'url('+api.mediaURL+ item.freelancerInfo.cover+'),url(assets/images/placeholder.png)'}">
+            </div>
+            <div style="margin-left: 20px;display: flex;flex-direction: column;">
+              <label class="res_name" style="margin: 0px;">{{item.freelancerInfo.first_name +' ' +
+                item.freelancerInfo.last_name}}</label>
+            </div>
+          </div>
+
+          <div class="resto_detail" *ngIf="item.type == 'salon'">
+            <div class="back_image"
+              [ngStyle]="{'background-image':'url('+api.mediaURL+ item.salonInfo.cover+'),url(assets/images/placeholder.png)'}">
+            </div>
+            <div style="margin-left: 20px;display: flex;flex-direction: column;">
+              <label class="res_name" style="margin: 0px;">{{item.salonInfo.name}}</label>
+            </div>
+          </div>
+
+          <div class="line_div"></div>
+          <div class="order_detail">
+            <label class="head_gray">{{util.translate('ITEMS')}}</label>
+            <div class="small_lbl">
+              <div *ngIf="item.orders?.length" class="border_bottom">
+                <p *ngFor="let order of item.orders;let ol = index" class="items">
+                  <span>{{order.name}} -
+                    <span *ngIf="order.have_gram == 1"> {{order.gram}} {{util.translate('grams')}}
+                    </span>
+                    <span *ngIf="order.have_kg == 1"> {{order.kg}} {{util.translate('kg')}} </span>
+                    <span *ngIf="order.have_liter ==1"> {{order.liter}} {{util.translate('ltr')}}
+                    </span>
+                    <span *ngIf="order.have_ml ==1"> {{order.ml}} {{util.translate('ml')}} </span>
+                    <span *ngIf="order.have_pcs == 1"> {{order.pcs}} {{util.translate('pcs')}}
+                    </span>
+
+                    <span *ngIf="util.cside =='left'">
+                      {{util.currecny}} {{order.discount ==0 ? order.original_price :
+                      order.sell_price}}
+                    </span>
+                    <span *ngIf="util.cside =='right'">
+                      {{order.discount ==0 ? order.original_price : order.sell_price}}
+                      {{util.currecny}}
+                    </span>
+
+                  </span>
+
+                  <span>X {{order.quantity}}</span>
+                </p>
+                <p class="itemss">
+                  <span>{{util.translate('Total')}} </span>
+                  <span *ngIf="util.cside =='left'"> {{util.currecny}}{{item.grand_total}} </span>
+                  <span *ngIf="util.cside =='right'">{{item.grand_total}} {{util.currecny}} </span>
+                </p>
+              </div>
+
+            </div>
+            <label class="head_gray">{{util.translate('ORDERED ON')}}</label>
+            <label class="small_lbl">{{getDate(item.date_time)}} </label>
+            <label class="head_gray">{{util.translate('TOTAL AMOUNT')}}</label>
+            <label class="small_lbl">
+              <span *ngIf="util.cside =='left'"> {{util.currecny}}{{item.grand_total}} </span>
+              <span *ngIf="util.cside =='right'">{{item.grand_total}} {{util.currecny}} </span>
+            </label>
+          </div>
+
+          <div class="line_div"></div>
+
+          <div class="status_detail" *ngIf="item.status == 4">
+            <div class="deliver_div">
+              {{util.translate('Completed')}}
+            </div>
+          </div>
+          <div class="status_detail" *ngIf="item.status == 5 || item.status == 6">
+            <div class="deliver_div">
+              {{util.translate('Your Order is')}} {{getStatus(item.status)}}
+            </div>
+          </div>
+          <div class="status_detail" *ngIf="item.status == 7 || item.status == 8">
+            <div class="deliver_div">
+              {{util.translate('Your Order is')}} {{getStatus(item.status)}}
+            </div>
+          </div>
+          <div class="status_detail"
+            *ngIf="item.status == 0 || item.status == 1 || item.status == 2 || item.status == 3">
+            <div class="deliver_div">
+              {{util.translate('Your Order is')}} {{getStatus(item.status)}}
+            </div>
+
+          </div>
+        </div>
+        <div class="has-text-centered" *ngIf="orderList?.length ">
+          <pagination-controls id="pagin1" (pageChange)="page = $event"></pagination-controls>
+        </div>
+
+        <div *ngFor="let item of dummyOrders" class="card_div">
+          <div class="resto_detail">
+            <div class="back_image">
+              <ngx-skeleton-loader appearance="circle" [theme]="{ 'border-radius': '5px', height: '50px',width:'100%'}">
+              </ngx-skeleton-loader>
+            </div>
+            <div style="margin-left: 20px;display: flex;flex-direction: column;">
+              <label class="res_name" style="margin: 0px;">
+                <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'120px'}">
+                </ngx-skeleton-loader>
+              </label>
+              <label class="res_location" style="margin: 0px;">
+                <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+                </ngx-skeleton-loader>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="tabId =='address'">
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-12 newAddress_card" (click)="addNewAddress()">
+            <i class="fas fa-plus-circle"></i>
+            <label class="lbl">{{util.translate('Add New')}}</label>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12 address_card" *ngFor="let item of myaddress">
+            <p class="title"> {{addressName[item.title]}} </p>
+            <p class="full_address">{{item.house}} {{item.landmark}} {{item.address}}</p>
+            <div class="btns">
+              <label class="editBtn" (click)="editAddress(item)" mdbWavesEffect>{{util.translate('Edit')}}</label>
+              <label class="delete" (click)="deleteAddress(item)" mdbWavesEffect>{{util.translate('Delete')}}</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-12 address_card" *ngFor="let item of dummyAddress">
+            <p class="title">
+              <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+              </ngx-skeleton-loader>
+            </p>
+            <p class="full_address">
+              <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'160px'}">
+              </ngx-skeleton-loader>
+            </p>
+            <div class="btns">
+              <label class="editBtn" mdbWavesEffect>
+                <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+                </ngx-skeleton-loader>
+              </label>
+              <label class="delete" mdbWavesEffect>
+                <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}">
+                </ngx-skeleton-loader>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

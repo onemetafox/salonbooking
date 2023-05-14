@@ -1,0 +1,555 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="animated fadeIn">
+    <div class="row mb-2">
+        <div class="col-sm-6 col-lg-3  pb-2" (click)="openPage('appointments')">
+            <div class="card text-white bg-info" style="cursor: pointer;">
+                <div class="card-body pb-2">
+
+                    <div class="text-value">{{total_appointments}} </div>
+                    <div> {{util.translate('Salon Appointments')}} </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3  pb-2" (click)="openPage('freelancer-appointments')">
+            <div class="card text-white bg-warning" style="cursor: pointer;">
+                <div class="card-body pb-2">
+
+                    <div class="text-value">{{total_appointments_freelancer}} </div>
+                    <div> {{util.translate('Individual Appointments')}} </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--/.col-->
+        <div class="col-sm-6 col-lg-3  pb-2" (click)="openPage('users')">
+            <div class="card text-white bg-primary" style="cursor: pointer;">
+                <div class="card-body pb-2">
+
+                    <div class="text-value">{{total_users}} </div>
+                    <div>{{util.translate('Total Users')}} </div>
+                </div>
+
+            </div>
+        </div>
+        <!--/.col-->
+        <div class="col-sm-6 col-lg-3  pb-2" (click)="openPage('freelancer')">
+            <div class="card text-white bg-warning" style="cursor: pointer;">
+                <div class="card-body pb-2">
+
+                    <div class="text-value">{{total_freelancers}} </div>
+                    <div>{{util.translate('Total Individuals')}} </div>
+                </div>
+
+            </div>
+        </div>
+        <!--  -->
+        <div class="col-sm-6 col-lg-3  pb-2" (click)="openPage('salons')">
+            <div class="card text-white bg-info" style="cursor: pointer;">
+                <div class="card-body pb-2">
+
+                    <div class="text-value">{{total_salon}} </div>
+                    <div>{{util.translate('Total Salon')}} </div>
+                </div>
+
+            </div>
+        </div>
+        <!--/.col-->
+        <div class="col-sm-6 col-lg-3  pb-2" (click)="openPage('orders')">
+            <div class="card text-white bg-danger" style="cursor: pointer;">
+                <div class="card-body pb-2">
+
+                    <div class="text-value">{{total_orders}} </div>
+                    <div> {{util.translate('Total Products Order')}} </div>
+                </div>
+
+            </div>
+        </div>
+        <!--/.col-->
+    </div>
+    <!--/.row-->
+
+    <div class="row mb-2">
+        <!-- Today -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="card-title mb-0">{{util.translate('Today Appointments Stats')}} </p>
+                            <div class="small text-muted">{{labelTodayAppointments}}</div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <c-chart type="bar" [data]="chartBarDataAppointments"></c-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Today -->
+
+        <!-- Weekly -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="card-title mb-0">{{util.translate('Weekly Appointments Stats')}} </p>
+                            <div class="small text-muted">{{labelWeeklyAppointments}}</div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <c-chart type="bar" [data]="chartBarData2Appointments"></c-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Weekly -->
+
+        <!-- Monthly -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="card-title mb-0">{{util.translate('Monthly Appointments Stats')}} </p>
+                            <div class="small text-muted">{{labelMonthlyAppointments}}</div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <c-chart type="bar" [data]="chartBarData3Appointments"></c-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Monthly  -->
+    </div>
+
+    <!-- Products Chart -->
+    <div class="row mb-2">
+        <!-- Today -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="card-title mb-0">{{util.translate('Today Orders Stats')}} </p>
+                            <div class="small text-muted">{{labelTodayProducts}}</div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <c-chart type="bar" [data]="chartBarDataProducts"></c-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Today -->
+
+        <!-- Weekly -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="card-title mb-0">{{util.translate('Weekly Orders Stats')}} </p>
+                            <div class="small text-muted">{{labelWeeklyProducts}}</div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <c-chart type="bar" [data]="chartBarData2Products"></c-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Weekly -->
+
+        <!-- Monthly -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="card-title mb-0">{{util.translate('Monthly Orders Stats')}} </p>
+                            <div class="small text-muted">{{labelMonthlyProducts}}</div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <c-chart type="bar" [data]="chartBarData3Products"></c-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Monthly  -->
+    </div>
+    <!-- Products Chart -->
+
+    <div class="row mb-2">
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    {{util.translate('Recent Appointments')}}
+                </div>
+                <div class="card-body">
+
+                    <div class="error_div" *ngIf="appointments?.length <= 0 && dummy?.length <= 0">
+                        <label>{{util.translate('No Data Found..')}}</label>
+                    </div>
+
+                    <table class="table table-responsive-sm table-hover mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">{{util.translate('Id')}}</th>
+                                <th scope="col"></th>
+                                <th scope="col">{{util.translate('Freelancer')}}</th>
+                                <th scope="col"></th>
+                                <th scope="col">{{util.translate('User')}}</th>
+                                <th scope="col">{{util.translate('Services')}}</th>
+                                <th scope="col">{{util.translate('Packages')}}</th>
+                                <th scope="col">{{util.translate('Grand Total')}}</th>
+                                <th scope="col">{{util.translate('Payment Method')}}</th>
+                                <th scope="col">{{util.translate('Status')}}</th>
+                                <th scope="col">{{util.translate('Action')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of dummy">
+                                <td *ngFor="let item of [1,2,3,4,1,2,3,4,5,5,6]">
+                                    <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let item of appointments;">
+                                <th scope="row">
+                                    {{item.id}}
+                                </th>
+                                <td>
+                                    <img class="img-responsive"
+                                        *ngIf="item && item.freelancer_id == 0 && item.salonInfo"
+                                        style="height: 40px;width: 40px; object-fit: cover;"
+                                        [src]="api.imageUrl + item.salonInfo.cover"
+                                        onError="this.src='assets/img/dummy.jpeg'">
+
+                                    <img class="img-responsive"
+                                        *ngIf="item && item.salon_id == 0 && item.individualInfo"
+                                        style="height: 40px;width: 40px; object-fit: cover;"
+                                        [src]="api.imageUrl + item.individualInfo.background"
+                                        onError="this.src='assets/img/dummy.jpeg'">
+                                </td>
+                                <td>
+                                    <span *ngIf="item && item.freelancer_id == 0 && item.salonInfo">
+                                        {{item.salonInfo.name}} </span>
+                                    <span *ngIf="item && item.salon_id == 0 && item.individualInfo">
+                                        {{item.individualInfo.first_name +' '+ item.individualInfo.last_name}} </span>
+
+                                </td>
+                                <td>
+                                    <img class="img-responsive" style="height: 40px;width: 40px; object-fit: cover;"
+                                        [src]="api.imageUrl + item.userInfo.cover"
+                                        onError="this.src='assets/img/dummy.jpeg'">
+                                </td>
+                                <td>
+                                    {{item.userInfo.first_name +' '+ item.userInfo.last_name}}
+                                </td>
+                                <td>
+                                    <div class="cate_info" *ngIf="item && item.items && item.items.services">
+                                        <span *ngFor="let cate of item.items.services;let cateIndex = index">
+                                            <p style="font-size: 10px;margin: 0px;"> {{cate.name}} <span
+                                                    *ngIf="cateIndex !=item.items.length - 1">,</span></p>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cate_info" *ngIf="item && item.items && item.items.packages">
+                                        <span *ngFor="let cate of item.items.packages;let cateIndex = index">
+                                            <p style="font-size: 10px;margin: 0px;"> {{cate.name}} <span
+                                                    *ngIf="cateIndex !=item.items.length - 1">,</span></p>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span *ngIf="util.cside =='left'">{{util.currecny}}
+                                        {{item.grand_total}} </span>
+                                    <span *ngIf="util.cside =='right'">{{item.grand_total}}
+                                        {{util.currecny}}</span>
+                                </td>
+                                <td> {{paymentName[item.pay_method]}} </td>
+                                <td> {{orderStatusNames[item.status]}} </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+
+                                        <c-badge color="info" class="me-1 badge bg-info" (click)="viewData(item.id)">
+                                            {{ util.translate('View')}}
+                                        </c-badge>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    {{util.translate('Recent Orders')}}
+                </div>
+                <div class="card-body">
+
+                    <div class="error_div" *ngIf="productsOrders?.length <= 0 && dummy?.length <= 0">
+                        <label>{{util.translate('No Data Found..')}}</label>
+                    </div>
+
+                    <table class="table table-responsive-sm table-hover mb-0">
+                        <thead class="thead-light">
+                            <tr>
+
+                                <th scope="col">{{util.translate('Id')}}</th>
+                                <th scope="col"></th>
+                                <th scope="col">{{util.translate('Freelancer')}}</th>
+                                <th scope="col"></th>
+                                <th scope="col">{{util.translate('User')}}</th>
+                                <th scope="col">{{util.translate('Services')}}</th>
+                                <th scope="col">{{util.translate('Grand Total')}}</th>
+                                <th scope="col">{{util.translate('Status')}}</th>
+                                <th scope="col">{{util.translate('Payment Method')}}</th>
+                                <th scope="col">{{util.translate('Action')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of dummy">
+                                <td *ngFor="let item of [1,2,3,4,1,2,3,4,5,5,6]">
+                                    <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let item of productsOrders">
+                                <th scope="row">
+                                    {{item.id}}
+                                </th>
+                                <td>
+                                    <img class="img-responsive"
+                                        *ngIf="item && item.freelancer_id == 0 && item.salonInfo"
+                                        style="height: 40px;width: 40px; object-fit: cover;"
+                                        [src]="api.imageUrl + item.salonInfo.cover"
+                                        onError="this.src='assets/img/dummy.jpeg'">
+
+                                    <img class="img-responsive"
+                                        *ngIf="item && item.salon_id == 0 && item.individualInfo"
+                                        style="height: 40px;width: 40px; object-fit: cover;"
+                                        [src]="api.imageUrl + item.individualInfo.background"
+                                        onError="this.src='assets/img/dummy.jpeg'">
+                                </td>
+                                <td>
+                                    <span *ngIf="item && item.freelancer_id == 0 && item.salonInfo">
+                                        {{item.salonInfo.name}} </span>
+                                    <span *ngIf="item && item.salon_id == 0 && item.individualInfo">
+                                        {{item.individualInfo.first_name +' '+ item.individualInfo.last_name}} </span>
+
+                                </td>
+                                <td>
+                                    <img class="img-responsive" style="height: 40px;width: 40px; object-fit: cover;"
+                                        [src]="api.imageUrl + item.userInfo.cover"
+                                        onError="this.src='assets/img/dummy.jpeg'">
+                                </td>
+                                <td>
+                                    {{item.userInfo.first_name +' '+ item.userInfo.last_name}}
+                                </td>
+                                <td>
+                                    <div class="cate_info">
+                                        <span *ngFor="let cate of item.orders;let cateIndex = index">
+                                            <p style="font-size: 10px;margin: 0px;"> {{cate.name}} <span
+                                                    *ngIf="cateIndex !=item.orders.length - 1">,</span></p>
+
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span *ngIf="util.cside =='left'">{{util.currecny}}
+                                        {{item.grand_total}} </span>
+                                    <span *ngIf="util.cside =='right'">{{item.grand_total}}
+                                        {{util.currecny}}</span>
+                                </td>
+                                <td> {{orderStatusNames[item.status]}} </td>
+                                <td> {{paymentName[item.paid_method]}} </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+
+                                        <c-badge color="info" class="me-1 badge bg-info"
+                                            (click)="viewDataProduct(item.id)">
+                                            {{ util.translate('View')}}
+                                        </c-badge>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    {{util.translate('Recent Contact Forms')}}
+                </div>
+                <div class="card-body">
+
+                    <div *ngIf="!complaints?.length && dummy.length == 0" style="text-align: center;">
+                        <p>{{util.translate('No Data Found..')}}</p>
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead *ngIf="complaints?.length">
+                            <tr>
+                                <th>{{util.translate('ID')}}</th>
+                                <th>{{util.translate('Order Id')}} </th>
+                                <th>{{util.translate('User')}} </th>
+                                <th>{{util.translate('Issue With')}}</th>
+                                <th>{{util.translate('Detail')}}</th>
+                                <th>{{util.translate('Title')}}</th>
+                                <th>{{util.translate('Status')}}</th>
+                                <th>{{util.translate('Action')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of dummy">
+                                <td *ngFor="let item of [1,2,3,4,5,6,7,8]">
+                                    <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                                </td>
+                            </tr>
+                            <tr *ngFor="let item of complaints;">
+                                <td>{{item.id}}</td>
+                                <td>{{item.order_id}}</td>
+                                <td>
+                                    <img class="img-responsive" style="height: 25px;width: 25px; object-fit: cover;"
+                                        [src]="api.imageUrl + item.userInfo.cover"
+                                        onError="this.src='assets/img/dummy.jpeg'">
+                                    {{item.userInfo.first_name +' '+ item.userInfo.last_name}}
+                                </td>
+                                <td>{{issue_With[item.issue_with]}}</td>
+                                <td>
+                                    <div *ngIf="item.issue_with == 1 && item.storeInfo && item.storeInfo.name">
+                                        {{util.translate('On Order From')}}<br>
+                                        <span style="font-weight: bold;">{{item.storeInfo.name}}</span>
+                                    </div>
+                                    <div *ngIf="item.issue_with == 2 && item.storeInfo && item.storeInfo.name">
+                                        {{util.translate('On Freelancer')}} <br>
+                                        <span style="font-weight: bold;">{{item.storeInfo.name}}</span>
+                                    </div>
+                                    <div *ngIf="item.issue_with == 3 && item.driverInfo && item.driverInfo.first_name">
+                                        {{util.translate('On Driver')}} <br>
+                                        <span style="font-weight: bold;">{{item.driverInfo.first_name +' '+
+                                            item.driverInfo.last_name}}</span>
+                                    </div>
+                                    <div
+                                        *ngIf="item.issue_with == 4 && item.productInfo && item.productInfo.name && item.storeInfo && item.storeInfo.name">
+                                        {{util.translate('On Product')}} <span
+                                            style="font-weight: bold;">{{item.productInfo.name}}</span>
+                                        {{util.translate('From')}} <br>
+                                        <span style="font-weight: bold;">
+                                            {{item.storeInfo.name}}
+                                        </span>
+                                    </div>
+
+                                    <div
+                                        *ngIf="item.issue_with == 6 && item.productInfo && item.productInfo.name && item.storeInfo && item.storeInfo.name">
+                                        {{util.translate('On Service')}} <span
+                                            style="font-weight: bold;">{{item.productInfo.name}}</span>
+                                        {{util.translate('From')}} <br>
+                                        <span style="font-weight: bold;">
+                                            {{item.storeInfo.name}}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>{{item.title}}</td>
+                                <td>
+                                    <c-badge [color]="item.status == 1?'success':'dark'"
+                                        [class]="item.status == 1 ? 'me-1 badge bg-success':'me-1 badge bg-dark'"
+                                        (click)="statusUpdate(item)">
+                                        {{item.status == 1 ?util.translate('Active'):util.translate('Resolved')}}
+                                    </c-badge>
+                                </td>
+                                <td>
+                                    <c-badge color="info" class="me-1 badge bg-info" (click)="openItem(item)">
+                                        {{ util.translate('View / Reply')}}
+                                    </c-badge>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{util.translate('Reply to')}} {{name}} </h5>
+                <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label class="col-form-label" for="disabled-input">{{util.translate('Name')}} : </label>
+                        <label style="font-weight: bold;"> {{name}} </label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label class="col-form-label" for="disabled-input">{{util.translate('Email')}} : </label>
+                        <label style="font-weight: bold;"> {{email}} </label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label class="col-form-label" for="disabled-input">{{util.translate('Message')}} : </label>
+                        <label style="font-weight: bold;"> {{message}} </label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label class="col-form-label" for="text-input">{{util.translate('Reply')}} </label>
+                        <textarea type="text" rows="10" id="text-input" name="text-input" class="form-control"
+                            [placeholder]="util.translate('Reply')" [(ngModel)]="reply"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    (click)="myModal.hide()">{{util.translate('Close')}}</button>
+                <button type="button" class="btn btn-primary" (click)="sendMail()">{{util.translate('Reply')}}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,122 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    {{util.translate('All Contact Forms')}}
+                </div>
+                <div class="card-body">
+
+                    <div class="row flex_row">
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control form-control-lg" id="name"
+                                [placeholder]="util.translate('Search by name')" (input)="search($event.target.value)">
+                        </div>
+                        <div class="col-lg-4"></div>
+
+                    </div>
+
+                    <div *ngIf="!list?.length && dummy.length == 0" style="text-align: center;">
+                        <p>{{util.translate('No Data Found..')}}</p>
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead *ngIf="list?.length">
+                            <tr>
+                                <th>{{util.translate('ID')}}</th>
+                                <th>{{util.translate('Name')}}</th>
+                                <th>{{util.translate('Email')}}</th>
+                                <th>{{util.translate('Message')}}</th>
+                                <th>{{util.translate('Action')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of dummy">
+                                <td *ngFor="let item of [1,2,3,4,5,6,7,8]">
+                                    <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                                </td>
+                            </tr>
+                            <tr
+                                *ngFor="let item of list | paginate: {id:'pagin1', itemsPerPage: 10, currentPage: page }">
+                                <td>{{item.id}}</td>
+
+                                <td>{{item.name}}</td>
+                                <td>{{item.email}}</td>
+                                <td>{{item.message}}</td>
+                                <td>
+                                    <c-badge color="info" class="me-1 badge bg-info" (click)="openItem(item)">
+                                        {{ util.translate('View / Reply')}}
+                                    </c-badge>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div *ngIf="list?.length > 0">
+                        <pagination-controls id="pagin1" (pageChange)="page = $event"></pagination-controls>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{util.translate('Reply to')}} {{name}} </h5>
+                <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label class="col-form-label" for="disabled-input">{{util.translate('Name')}} : </label>
+                        <label style="font-weight: bold;"> {{name}} </label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label class="col-form-label" for="disabled-input">{{util.translate('Email')}} : </label>
+                        <label style="font-weight: bold;"> {{email}} </label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label class="col-form-label" for="disabled-input">{{util.translate('Message')}} : </label>
+                        <label style="font-weight: bold;"> {{message}} </label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <label class="col-form-label" for="text-input">{{util.translate('Reply')}} </label>
+                        <textarea type="text" rows="10" id="text-input" name="text-input" class="form-control"
+                            [placeholder]="util.translate('Reply')" [(ngModel)]="reply"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    (click)="myModal.hide()">{{util.translate('Close')}}</button>
+                <button type="button" class="btn btn-primary" (click)="sendMail()">{{util.translate('Reply')}}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

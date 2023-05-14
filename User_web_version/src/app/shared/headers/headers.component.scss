@@ -1,0 +1,119 @@
+/*
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+*/
+.main_header {
+  background-color: #f3f3f3;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  max-width: 100%;
+  z-index: 9999;
+  padding: 5px;
+  box-shadow: 3px 3px 5px 0px #dee2e6;
+
+  .header_items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .state_lbl {
+      color: grey;
+
+      mdb-icon {
+        color: #0b19df;
+        padding-left: 5px;
+      }
+    }
+
+    .otherLinks {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  .filterItems {
+    padding: 10px 0px;
+
+    .allItems {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .filter_btns {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
+
+.city_lbl {
+  font-weight: 600;
+  border-bottom: 2px solid black;
+}
+
+.totalRest {
+  font-size: 18px;
+  color: black;
+}
+
+.nav-link {
+  color: black !important;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
+.nav-link:hover {
+  color: #0b19df !important;
+}
+
+.active {
+  color: #0b19df;
+}
+
+.avtar {
+  height: 30px;
+  width: 30px;
+}
+
+label {
+  margin: 0;
+}
+
+.logo_img {
+  width: 50px;
+  height: 50px;
+  transition: all 0.2s ease-in-out;
+}
+
+.logo_img:hover {
+  transform: scale(1.1);
+}
+
+.green_box {
+  stroke: #60b246;
+  fill: #60b246;
+}
+
+.item_no {
+  position: absolute;
+  left: 27%;
+  transform: translate(-50%);
+  top: 11px;
+  font-size: 14px;
+  color: white;
+  font-weight: 600;
+}
+
+.modal-dialog {
+  width: 700px !important;
+}

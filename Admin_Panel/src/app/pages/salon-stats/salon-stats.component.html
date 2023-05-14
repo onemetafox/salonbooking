@@ -1,0 +1,210 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="animated fadeIn">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    {{util.translate('Stats')}}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5>{{util.translate('Get Stats')}} </h5>
+                                </div>
+                                <div class="card-body reset-table p-t-0">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label>{{util.translate('Select Salon')}}</label>
+                                                <select name="select" [(ngModel)]="freelancerUId" class="form-control">
+                                                    <option [value]="item.uid" *ngFor="let item of freelancers">
+                                                        {{item.name}} </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>{{util.translate('From Date')}} </label>
+                                            <input type="date" [(ngModel)]="from" class="form-control"
+                                                [placeholder]="util.translate('Expire Date')">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>{{util.translate('To Date')}} </label>
+                                            <input type="date" [(ngModel)]="to" class="form-control"
+                                                [placeholder]="util.translate('Expire Date')">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <button class="btn btn-danger btn-round"
+                                                (click)="getStats()">{{util.translate('Get Stats')}}
+                                            </button>
+                                            <button style="margin-left: 20px;" [useExistingCss]="true"
+                                                [printTitle]="storename" printSectionId="print-section" ngxPrint
+                                                *ngIf="from && to && appointments?.length" class="btn btn-primary"><i
+                                                    class="icofont icofont-printer"></i>{{util.translate('Print')}}
+                                            </button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 style="text-align: center;" *ngIf="from && to && !appointments?.length && apiCalled">
+                        {{util.translate('No Appointments Found')}}
+                    </h2>
+                    <div class="row" id="print-section" *ngIf="from && to && appointments?.length">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body" style="padding: 20px;">
+                                    <h3 style="text-align: center;color: #7ec6aa;">{{util.general.name}}</h3>
+                                    <p style="text-align: center;color: #ED7669;">{{getDate(from)}}
+                                        {{util.translate('to')}} {{getDate(to)}}
+                                    </p>
+                                    <p
+                                        style="text-align: right;font-weight: bold;margin: 0px !important;color: #7EC6AA;">
+                                        {{util.general.name}}</p>
+                                    <p style="text-align: right;font-weight: bold;margin: 0px !important;">
+                                        {{util.general.address}} <br> {{util.general.city}} {{util.general.state}}<br>
+                                        {{util.general.country}} {{util.general.zip}}
+                                    </p>
+                                    <p style="text-align: right;font-weight: bold;margin: 0px !important;">
+                                        {{util.general.email}}</p>
+                                    <p style="text-align: right;font-weight: bold;margin: 0px !important;">
+                                        {{util.general.mobile}}
+                                    </p>
+                                    <p style="text-align: left; font-weight: bold;margin: 0px;color: #aaafad;">
+                                        {{storename}}
+                                    </p>
+                                    <p style="text-align: left; font-weight: bold;color: #7EC6AA;">{{today()}}</p>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr class="text-uppercase" style="color:#7ec6aa ;">
+                                                <th>{{util.translate('Id')}} </th>
+                                                <th>{{util.translate('Appointments on')}} </th>
+                                                <th>{{util.translate('Services')}} </th>
+                                                <th>{{util.translate('Packages')}} </th>
+                                                <th>{{util.translate('Total')}} </th>
+                                                <th>{{util.translate('Discount')}} </th>
+                                                <th>{{util.translate('Grand Total')}} </th>
+                                                <th>{{util.translate('Commission')}} </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of appointments" style="background-color: #F5F8FA;">
+                                                <td>##{{item.id}}</td>
+                                                <td>{{item.save_date}}</td>
+                                                <td>
+                                                    <div
+                                                        *ngIf="item && item.items && item.items.services && item.items.services.length >0">
+                                                        <p *ngFor="let orders of item.items.services;let i =index;"
+                                                            style="margin:0px;">
+                                                            <span style="font-size: 10px;text-transform: capitalize;">
+                                                                {{orders.name}} </span>
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div
+                                                        *ngIf="item && item.items && item.items.packages && item.items.packages.length >0">
+                                                        <p *ngFor="let orders of item.items.packages;let i =index;"
+                                                            style="margin:0px;">
+                                                            <span style="font-size: 10px;text-transform: capitalize;">
+                                                                {{orders.name}} </span>
+                                                        </p>
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <span *ngIf="util.cside =='left'">{{util.currecny}}
+                                                        {{item.total}}
+                                                    </span>
+                                                    <span *ngIf="util.cside =='right'">{{item.total}}
+                                                        {{util.currecny}}</span>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="util.cside =='left'">{{util.currecny}}
+                                                        {{item.discount}} </span>
+                                                    <span *ngIf="util.cside =='right'">{{item.discount}}
+                                                        {{util.currecny}}</span>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="util.cside =='left'">{{util.currecny}}
+                                                        {{item.grand_total}} </span>
+                                                    <span *ngIf="util.cside =='right'">{{item.grand_total}}
+                                                        {{util.currecny}}</span>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="util.cside =='left'">{{util.currecny}}
+                                                        {{getCommisions(item.total)}}
+                                                    </span>
+                                                    <span *ngIf="util.cside =='right'">{{getCommisions(item.total)}}
+                                                        {{util.currecny}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row" style="padding: 20px;">
+                                        <div class="col-sm-6"></div>
+                                        <div class="col-sm-4">
+                                            <p
+                                                style="text-align: right;font-weight: bold;margin: 0px !important;color: #7EC6AA;;">
+                                                {{util.translate('Total')}} </p>
+                                            <p
+                                                style="text-align: right;font-weight: bold;margin: 0px !important;color: #7EC6AA;;">
+                                                {{util.translate('Commission')}}
+                                            </p>
+                                            <p
+                                                style="text-align: right;font-weight: bold;margin: 0px !important;color: #7EC6AA;;">
+                                                {{util.translate('Amount Pay')}}
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p
+                                                style="color: black !important;margin: 0px !important;text-align: right;">
+
+                                                <span *ngIf="util.cside =='left'">{{util.currecny}} {{totalAmount}}
+                                                </span>
+                                                <span *ngIf="util.cside =='right'">{{totalAmount}}
+                                                    {{util.currecny}}</span>
+                                            </p>
+                                            <p
+                                                style="color: black !important; margin: 0px !important;text-align: right;">
+
+                                                <span *ngIf="util.cside =='left'">{{util.currecny}} {{commisionAmount}}
+                                                </span>
+                                                <span *ngIf="util.cside =='right'">{{commisionAmount}}
+                                                    {{util.currecny}}</span>
+                                            </p>
+                                            <p
+                                                style="color: black !important;margin: 0px !important;text-align: right;">
+                                                <!-- {{toPay}} -->
+                                                <span *ngIf="util.cside =='left'">{{util.currecny}} {{toPay}}
+                                                </span>
+                                                <span *ngIf="util.cside =='right'">{{toPay}}
+                                                    {{util.currecny}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

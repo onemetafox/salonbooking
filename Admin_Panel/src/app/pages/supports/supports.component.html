@@ -1,0 +1,96 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5>{{util.translate('Support')}} </h5>
+            </div>
+            <div class="card-body reset-table p-t-0">
+                <div class="form-group row" style="height: 60vh;border: 1px solid lightgray;">
+                    <div class="col-sm-4"
+                        style="height: 60vh;overflow: scroll;padding: 0px;border-right: 1px solid lightgray;">
+                        <div style="border-bottom: 1px solid lightgray;padding: 10px;margin: 10px;background: lightcoral;color: white;"
+                            *ngIf="selectedId">
+                            <div style="display:flex;">
+                                <img class="img-responsive" style="height: 40px;width:40px;border-radius: 50%;"
+                                    [src]="api.imageUrl+avtar" onError="this.src='assets/img/dummy.jpeg'"
+                                    alt="chat-user">
+                                <label style="margin-left: 10px;">{{name}} <br> <span
+                                        style="font-size:.6rem;color:white;">{{type}}</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div *ngFor="let item of users"
+                            style="border-bottom: 1px solid lightgray;padding: 10px;margin: 10px;"
+                            [id]="uid == item.sender_id ? item.sender_id : item.uid">
+                            <div style="display:flex;align-items: center;" *ngIf="uid == item.sender_id"
+                                (click)="chatUser(item.receiver_id,item.receiver_type,item.receiver_name +' '+ item.receiver_last_name)">
+                                <img class="img-responsive" style="height: 40px;width:40px;border-radius: 50%;"
+                                    [src]="api.imageUrl+item.receiver_cover" onError="this.src='assets/img/dummy.jpeg'"
+                                    alt="chat-user">
+                                <label style="margin-left: 10px;">{{item.receiver_name +' '+ item.receiver_last_name}}
+                                </label>
+                            </div>
+
+                            <div style="display:flex;align-items: center;" *ngIf="uid != item.sender_id"
+                                (click)="chatUser(item.sender_id,item.sender_type,item.sender_first_name +' '+ item.sender_last_name)">
+                                <img class="img-responsive" style="height: 40px;width:40px;border-radius: 50%;"
+                                    [src]="api.imageUrl+item.sender_cover" onError="this.src='assets/img/dummy.jpeg'"
+                                    alt="chat-user">
+                                <label style="margin-left: 10px;">{{item.sender_first_name +' '+ item.sender_last_name}}
+                                </label>
+                            </div>
+
+                        </div>
+                        <div style="border-bottom: 1px solid lightgray;padding: 10px;margin: 10px;"
+                            *ngFor="let item of dummyList">
+                            <div style="display:flex;align-items: center;">
+                                <ngx-skeleton-loader count="1" appearance="line" style="width: 100%;">
+                                </ngx-skeleton-loader>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8" style="height: 60vh;overflow: scroll; position: relative;">
+                        <div class="lower_div" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+                            <span *ngFor="let msg of messages" #messages>
+                                <div class="main_div_right" *ngIf="msg.sender_id == uid">
+                                    <div class="msg_div">
+                                        <div class="inner_msg">
+                                            {{msg.message}}
+                                        </div>
+                                    </div>
+                                    <div class="tri_right"></div>
+                                </div>
+
+                                <div class="main_div_left" *ngIf="msg.sender_id != uid">
+                                    <div class="msg_div">
+                                        <div class="inner_msg">
+                                            {{msg.message}}
+                                        </div>
+                                    </div>
+                                    <div class="tri_left"></div>
+                                </div>
+                            </span>
+                        </div>
+                        <div style="position: absolute;bottom: 10px;width: 90%;display: flex;flex-direction: row;justify-content: space-between;align-items: center;"
+                            *ngIf="id">
+                            <input type="text" [(ngModel)]="message" class="form-control form-control-round"
+                                (keydown.enter)="send()" [placeholder]="util.translate('Send Message')">
+                            <button style="margin-left: 10px;" (click)="send()" class="btn btn-danger btn-icon">
+                                {{util.translate('Send')}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

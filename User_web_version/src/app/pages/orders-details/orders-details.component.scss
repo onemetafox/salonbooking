@@ -1,0 +1,314 @@
+/*
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+*/
+.divider {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.order {
+  font-size: 12px;
+  font-family: "regular";
+  margin: 20px 0;
+}
+
+.main-box {
+  border: 1px solid rgb(232, 232, 232);
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.rest_details {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+
+  .basic_details {
+    display: flex;
+    flex-direction: row;
+
+    .order-image {
+      height: 30px;
+      width: 30px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+    }
+
+    .head-text {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .order-address {
+      font-size: 12px;
+    }
+  }
+
+  .extra_btns {
+    .track_store {
+      color: red;
+      font-size: 12px;
+      border: 1px solid red;
+      border-radius: 25px;
+      padding: 2px 10px;
+      margin: 0px 5px;
+      cursor: pointer;
+    }
+  }
+}
+
+.res_location {
+  font-size: 14px;
+  width: 90%;
+}
+
+.flex_div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
+  .food_title {
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .food_price {
+    font-size: 15px;
+  }
+
+  .fav_lbl {
+    color: red;
+    font-size: 12px;
+    border: 1px solid red;
+    border-radius: 25px;
+    padding: 2px 10px;
+  }
+}
+
+.location_body {
+  .upper_div {
+    height: 50vh;
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .lower_div {
+    height: 40vh;
+    padding: 20px;
+
+    ion-label {
+      display: block;
+    }
+
+    .head_lbl {
+      font-weight: 600;
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    .driver_detail_div {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: relative;
+
+      .back_image {
+        height: 50px !important;
+        width: 50px !important;
+        border-radius: 100%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-width: 50px;
+      }
+
+      .boy_name {
+        font-weight: 600;
+      }
+
+      .address {
+        color: gray;
+        width: 80%;
+      }
+
+      .btns {
+        font-weight: 600;
+        border-radius: 5px;
+        background: #ff384c;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+        text-align: center;
+      }
+    }
+
+    .order_detail {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .order_status {
+      background: #ff384c;
+      position: absolute;
+      right: 20px;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.order-head {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(232, 232, 232);
+
+  .order-status {
+    font-size: 10px;
+    font-family: "regular";
+  }
+}
+
+.order-body {
+  margin: 10px 0;
+}
+
+
+
+.veg-image {
+  height: 15px;
+  width: 15px;
+}
+
+.item-name {
+  font-family: 'regular';
+}
+
+.bold-text {
+  font-size: 14px;
+  font-family: 'bold';
+}
+
+.btn_div {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px;
+
+  .rates {
+    font-weight: 600;
+    border-radius: 5px;
+    background: #ffc409;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .btns {
+    font-weight: 600;
+    border-radius: 5px;
+    background: #ff384c;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+  }
+}
+
+.edit_profile {
+  margin-bottom: 40px;
+
+  .title_text {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
+
+  .round_image {
+    // background: #f5f5f5;
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 30px !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: auto;
+
+    .user_icn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #93959f;
+      font-size: 30px;
+    }
+
+    .green_box {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: #0b19df;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      .pencil_icn {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+      }
+    }
+
+    .green_box>input {
+      display: none;
+    }
+  }
+
+  .round_btn {
+    background: #0b19df;
+    color: white;
+    font-size: 18px;
+    margin: 0;
+    margin-top: 50px;
+    letter-spacing: 1px;
+  }
+}
+
+.RatingBtns {
+  color: yellow;
+  font-size: 45px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px 0px;
+
+  .fas {
+    cursor: pointer;
+    color: orange !important;
+  }
+
+  .far {
+    cursor: pointer;
+    color: orange !important;
+  }
+}

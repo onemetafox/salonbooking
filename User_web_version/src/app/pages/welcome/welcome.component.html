@@ -1,0 +1,176 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<div class="row_div">
+  <div class="row">
+    <div class="col-lg-12 col-sm-4 back_image bg_image" [style.backgroundImage]="'url(assets/imgs/back.png)'">
+      <div class="overlay">
+        <div class="container">
+          <div class="row  justify-content-md-center">
+            <div class="col-xl-7 col-lg-8">
+              <h1 class="bold_lbl">
+                {{util.translate('Find Your Favourite')}} <br> {{util.translate('Salon & Specialist')}}
+              </h1>
+              <div class="row full_div container">
+                <div class="col-9">
+                  <div class="input_div">
+                    <img src="assets/imgs/placeholder.png" style="width: 25px;height: 22px;">
+                    <input type="text" style="font-size: 12px;" class="form-control" [(ngModel)]="autocomplete1.query"
+                      [placeholder]="util.translate('Choose your Location')" (ngModelChange)="onSearchChange($event)">
+                  </div>
+                </div>
+                <div class="col-3" *ngIf="util.deviceType =='desktop'">
+                  <div class="btns">
+                    <div class="locate_btn waves-effect" mdbWavesEffect (click)="locate()">
+                      <mdb-icon fas icon="location-arrow"></mdb-icon>
+                      {{util.translate('Locate Me')}}
+                    </div>
+                    <div class="arrow_btn" (click)="goToRest()">
+                      <mdb-icon fas icon="search"></mdb-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="util.deviceType !=='desktop'">
+                <div class="col-12">
+                  <div class="locate_btn_lng waves-effect" mdbWavesEffect (click)="locate()">
+                    <mdb-icon fas icon="location-arrow"></mdb-icon>
+                    {{util.translate('Locate Me')}}
+                  </div>
+                </div>
+              </div>
+              <div class="row address_list">
+                <div class="col-12 address_name" *ngFor="let item of autocompleteItems1"
+                  (click)="selectSearchResult1(item)">
+                  <mdb-icon fas icon="map-marker-alt" style="color: gray; margin-right: 10px;"></mdb-icon>
+                  {{ item.description }}
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container service_div">
+  <div class="row">
+    <div class="col-lg-2 col-sm-4 col-md-4 service_box">
+      <img src="assets/homeicons/booking.png" style="width: 80px;" alt="">
+      <label class="small_lbl">{{util.translate('Online Booking')}}</label>
+    </div>
+    <div class="col-lg-2 col-sm-4 col-md-4 service_box">
+      <img src="assets/homeicons/online-gambling.png" style="width: 80px;" alt="">
+      <label class="small_lbl">{{util.translate('Slot Blockers')}}</label>
+    </div>
+    <div class="col-lg-2 col-sm-4 col-md-4 service_box">
+      <img src="assets/homeicons/hair-dye-brush.png" style="width: 80px;" alt="">
+      <label class="small_lbl">{{util.translate('Package Booking')}}</label>
+    </div>
+    <div class="col-lg-2 col-sm-4 col-md-4 service_box">
+      <img src="assets/homeicons/hair-salon.png" style="width: 80px;" alt="">
+      <label class="small_lbl">{{util.translate('Barbar Shops')}}</label>
+    </div>
+    <div class="col-lg-2 col-sm-4 col-md-4 service_box">
+      <img src="assets/homeicons/seat.png" style="width: 80px;" alt="">
+      <label class="small_lbl">{{util.translate('Service At Home')}}</label>
+    </div>
+    <div class="col-lg-2 col-sm-4 col-md-4 service_box">
+      <img src="assets/homeicons/package.png" style="width: 80px;" alt="">
+      <label class="small_lbl">{{util.translate('Truested Products')}}</label>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <div class="row getapp_div">
+    <div class="col-lg-6 getapp_content">
+      <label class="head_lbl">{{util.translate('Beauty Salons')}}</label>
+      <label class="small_lbl">
+        {{util.translate("Beauty salons are not left out of the benefits of working with Salonist. This advanced
+        appointment scheduling system has a seamless payment feature. You can take advantage of this.")}}
+      </label>
+      <button mdbBtn class="round_btn" (click)="goToRest()">{{util.translate('Find Salon & Specialist')}}</button>
+    </div>
+    <div class="col-lg-6">
+      <img src="assets/imgs/home-1.jpg" style="width: 100%;">
+    </div>
+  </div>
+</div>
+
+<div style="background: #f5f5f5;padding-top: 60px;padding-bottom: 60px;margin-top: 60px;">
+  <div class="container">
+    <div class="row getapp_div">
+      <div class="col-lg-6">
+        <img src="assets/imgs/home-2.jpg" style="width: 100%;">
+      </div>
+      <div class="col-lg-6 getapp_content">
+        <label class="head_lbl">{{util.translate('Massage & Spa Centers')}}</label>
+        <label class="small_lbl">
+          {{util.translate("Want to take the stress out of managing your massage and spa centers? All you need is
+          Salonist, management software that handles all aspects of your business. Use this software to monitor reports,
+          package management, and book appointments")}}
+        </label>
+        <button mdbBtn class="round_btn" (click)="goToRest()">{{util.translate('Find Salon & Specialist')}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container blog_container" *ngIf="blogs?.length">
+
+  <label class="blog_header">{{util.translate('Our Blogs')}}</label>
+
+  <div class="row product_div">
+    <div class="pro_col col-lg-4 col-sm-12 col-md-6 col-xs-12" *ngFor="let item of blogs" (click)="goToBlogs(item)">
+      <div class="pro_div hoverable">
+        <div class="rest_img bg_image" [style.backgroundImage]="'url('+api.mediaURL+ item.cover +')'">
+          <div class="overlay">
+            <label class="date">{{getDate(item.updated_at)}} </label>
+            <label class="month">{{getMonth(item.updated_at)}} </label>
+          </div>
+        </div>
+        <div class="content_div">
+          <label class="pro_name">{{ (item.title.length>20)? (item.title | slice:0:20)+'..':(item.title) }} </label>
+          <label class="addr" [innerHTML]="getContent(item)">
+          </label>
+          <div class="service_flex">
+            <label>{{util.translate('Read More')}}</label>
+            <mdb-icon fas icon="arrow-right"></mdb-icon>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <mdb-icon fas icon="long-arrow-alt-right" class="all_blog"></mdb-icon>
+  </div>
+</div>
+
+
+<div class="container">
+  <section class="text-center my-5 p-1">
+
+    <h2 class="h1-responsive ff-bold my-5"> {{util.translate("Why is it so great?")}} </h2>
+
+    <div class="mb-5">
+      <a><img class="pr-2" src="assets/images/appstore.png" height="40" /></a>
+      <a><img src="assets/images/playmarket.png" height="40" /></a>
+    </div>
+
+    <p class="lead grey-text w-responsive mx-auto mb-5"> {{util.translate("Lorem ipsum dolor sit amet, consectetur
+      adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.")}}
+    </p>
+
+
+  </section>
+</div>

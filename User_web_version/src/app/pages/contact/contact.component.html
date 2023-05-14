@@ -1,0 +1,60 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<div class="container">
+
+  <div class="head_title">
+    <label>{{util.translate('Contact Us')}} </label>
+  </div>
+
+  <div class="row">
+
+    <div class="col-lg-6">
+
+      <input type="text" class="form-control" [(ngModel)]="contact.name" [placeholder]="util.translate('Full Name')">
+
+      <input type="text" class="form-control" [(ngModel)]="contact.email" [placeholder]="util.translate('Email ID')">
+
+      <textarea class="form-control" rows="5" [(ngModel)]="contact.message"
+        [placeholder]="util.translate('Write Message..')"></textarea>
+
+      <button type="button" mdbWavesEffect mdbBtn class="btn" (click)="submit()">{{util.translate('Submit')}}
+      </button>
+
+    </div>
+
+    <div class="col-lg-6">
+      <div class="address_div" *ngIf="util.general && util.general.address">
+
+        <div class="flex_box">
+          <mdb-icon fas icon="home"></mdb-icon>
+          <label> {{util.general.address}}
+          </label>
+        </div>
+        <div class="flex_box">
+          <mdb-icon fas icon="home"></mdb-icon>
+          <label> {{util.general.city}} - {{util.general.country}} - {{util.general.zip}}
+          </label>
+        </div>
+        <div class="flex_box">
+          <mdb-icon fas icon="envelope"></mdb-icon>
+          <label> {{util.general.email}} </label>
+        </div>
+        <div class="flex_box">
+          <mdb-icon fas icon="phone-alt"></mdb-icon>
+          <label> {{util.general.mobile}} </label>
+        </div>
+        <div class="flex_box">
+          <mdb-icon fas icon="print"></mdb-icon>
+          <label for=""> {{util.general.email}} </label>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

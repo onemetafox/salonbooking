@@ -1,0 +1,486 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<div class="main-content bg-light p-1">
+  <section class="py-4 service-main-body">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-8">
+
+          <div class="pb-3">
+            <div class="bg-white border-0 p-0">
+              <div class="mb-0 ff-medium shadow-sm">
+                <button class="rounded border-0 d-flex align-items-center bg-white btn-block px-3 py-4 m-0"
+                  type="button" (click)="id1.toggle()">
+                  <span class="c-number">1</span>{{util.translate('Cart')}}
+                  ({{productCart.totalItemsInCart}} {{util.translate('items')}})
+                </button>
+              </div>
+              <div mdbCollapse #id1="bs-collapse" [isCollapsed]="false">
+                <div class="card-body p-0 border-top shadow-sm service-cart">
+                  <div class="cart-items bg-white p-3 ">
+                    <div class="d-flex align-items-center mb-3" *ngFor="let item of productCart.cart;let i = index">
+                      <a><img
+                          [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}"
+                          class="img-fluid" /></a>
+                      <a class="ml-3 text-dark text-decoration-none w-100">
+                        <h6 class="h6 mb-1 ff-bold">{{item.name}}</h6>
+
+                        <div class="d-flex align-items-center">
+                          <p class="h6 text-muted m-0 mr-3 small">
+                            <del>
+                              <span *ngIf="util.currencySide == 'left'">
+                                {{util.currencySymbol}} {{item.original_price}} </span>
+                              <span *ngIf="util.currencySide == 'right'">
+                                {{item.original_price}} {{util.currencySymbol}} </span>
+                            </del>
+                          </p>
+
+                          <p class="head-text ff-medium f-primary m-0">
+                            <span class="ff-medium head-text" *ngIf="util.currencySide == 'left'">
+                              {{util.currencySymbol}}
+                              {{item.sell_price}} </span>
+                            <span class="ff-medium head-text" *ngIf="util.currencySide == 'right'"> {{item.sell_price}}
+                              {{util.currencySymbol}} </span>
+                          </p>
+
+                          <div class="qty_flex d-flex ml-auto align-items-center"
+                            *ngIf="productCart.itemId.includes(item.id)">
+                            <div class="round_btn" (click)="remove(i)">
+                              <mdb-icon fas icon="minus"></mdb-icon>
+                            </div>
+                            <h6 class="m-0 ff-medium px-1">{{item.quantity}}</h6>
+                            <div class="round_btn" (click)="add(i)">
+                              <mdb-icon fas icon="plus"></mdb-icon>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-3">
+            <div class="bg-white border-0 p-0">
+              <div class="mb-0 mt-2 ff-medium shadow-sm">
+                <div class="d-flex justify-content-between align-items-center">
+                  <button class="rounded border-0 d-flex align-items-center bg-white ff-medium btn-block px-3 py-4 m-0"
+                    type="button" (click)="id2.toggle()"> <span class="c-number">2</span>{{util.translate('Address')}}
+                  </button>
+                  <a class="ff-medium f-primary text-right w-75 mr-2" (click)="addNewAddress()">
+                    {{util.translate('+Add New Address')}}
+                  </a>
+                </div>
+                <div class="p-3 border bg-white rounded shadow-sm m-3"
+                  *ngIf="productCart && productCart.deliveredAddress && productCart.deliveredAddress.address">
+                  <div class="d-flex align-items-center mb-2">
+                    <p class="h6 mb-1 f-primary ff-bold">
+                      {{addressTitle[productCart.deliveredAddress.title]}}
+                    </p>
+                    <div class="d-flex ml-auto">
+                      <a class="f-primary small"
+                        (click)="onEditAddress(productCart.deliveredAddress)">{{util.translate('EDIT')}}</a>
+                    </div>
+                  </div>
+                  <p class="text-muted m-0 mt-2 small">
+                    {{productCart.deliveredAddress.address}} {{productCart.deliveredAddress.house}}
+                    {{productCart.deliveredAddress.landmark}} -
+                    {{productCart.deliveredAddress.pincode}},</p>
+                </div>
+              </div>
+
+              <div mdbCollapse #id2="bs-collapse">
+                <div class="card-body p-0 border-top shadow-sm">
+                  <div class="p-3 row">
+                    <div class="col-lg-6 mb-1 " *ngFor="let item of addressList">
+                      <div class="p-3 border bg-white rounded shadow-sm w-100">
+                        <div class="d-flex align-items-center mb-2">
+                          <p class="h6 mb-1 f-primary ff-bold">{{addressTitle[item.title]}}
+                          </p>
+                          <div class="d-flex ml-auto">
+                            <a class="f-primary small" (click)="onEditAddress(item)">{{util.translate('EDIT')}}</a>
+                          </div>
+                        </div>
+                        <p class="text-muted m-0 mt-2 small">{{item.house}} {{item.address}}
+                          {{item.landmark}} {{item.pincode}}</p>
+
+                        <div class="outline-btn mt-2" (click)="selectAddress(item)">
+                          {{util.translate('Deliver Here')}} </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="pb-3">
+            <div class="bg-white border-0 p-0">
+              <div class="mb-0 mt-2 ff-medium shadow-sm">
+                <button class="rounded border-0 d-flex align-items-center bg-white btn-block px-3 py-4 m-0"
+                  type="button" (click)="id4.toggle()">
+                  <span class="c-number">3</span>{{util.translate('Payment')}}
+                </button>
+              </div>
+              <div mdbCollapse #id4="bs-collapse">
+                <div class="card-body p-0 border-top shadow-sm">
+                  <div class="cart-items bg-white p-3 ">
+
+                    <div class="mt-2">
+                      <div class="payment-list d-block" *ngFor="let item of paymentMethodList">
+                        <a class="payment-name mt-3 py-1 text-start pl-3 d-flex align-items-center border"
+                          (click)="savePayment(item.id)"
+                          [ngStyle]="{'background-color': (paymentId == item.id  ? '#0b19df' : null) }">
+                          <div
+                            [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.jpg)'}"
+                            class="payment-img"></div>
+                          <a class="text-center pl-3" [ngStyle]="{'color': (paymentId == item.id  ? 'white' : null) }">
+                            {{item.name}}</a>
+                          <a class="ml-auto pr-3">
+                            <i class="far fa-check-circle"
+                              [ngStyle]="{'color': (paymentId == item.id  ? 'white' : 'white') }"></i>
+                          </a>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="pt-4">
+                      <button type="button" mdbBtn (click)="onCheckout()"
+                        class="rounded text-white m-0  btn-color btn-block" mdbWavesEffect>
+                        <div>
+                          <div>
+                            <!-- <h6 class="m-0 text-capitalize ff-medium">
+                              {{util.translate('Subtotal')}}
+                              {{productCart.totalPrice}}</h6> -->
+                            <h6 class="m-0 text-capitalize ff-medium">
+                              {{util.translate('Grand Total')}}
+                              <span *ngIf="util.currencySide == 'left'">{{util.currencySymbol}}
+                                {{productCart.grandTotal}}</span>
+                              <span *ngIf="util.currencySide == 'right'">{{productCart.grandTotal}}
+                                {{util.currencySymbol}}</span>
+                            </h6>
+                            <p class="m-0 text-capitalize">
+                              {{util.translate('Proceed to Checkout')}} </p>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-4">
+          <div class="sticky_sidebar">
+            <div class="pd bg-white rounded overflow-hidden shadow-sm mb-3 checkout-sidebar ">
+              <div class="d-flex align-items-center profile border-bottom bg-white p-3 ">
+                <div
+                  [ngStyle]="{'background-image': 'url('+ api.mediaURL + freelancerCover +'),url(assets/images/placeholder.jpg)'}"
+                  class="mr-2 rounded-circle img-fluid"></div>
+                <div class="d-flex flex-column">
+                  <h6 class="mb-1 ff-bold">{{freelancerName}}</h6>
+                </div>
+              </div>
+              <div>
+
+                <div class="apply-coupon mx-3" (click)="addCoupon()">
+                  <div>
+                    <mdb-icon fas icon="tags" class="prefix grey-text pr-1"></mdb-icon>
+                    {{util.translate('Apply Coupon')}}
+                  </div>
+                </div>
+
+                <div class="wallet_box" [ngStyle]="{'color': balance <= 0 || productCart.coupon ? 'gray':'black'}">
+                  <label class="head_lbl">{{util.app_name}} {{util.translate('Wallet Balance')}} </label>
+
+                  <div class="checkmark" (click)="walletChange()">
+                    <i class="fas fa-check-circle" *ngIf="walletCheck == true"></i>
+                    <i class="far fa-circle" *ngIf="walletCheck == false"></i>
+                    {{util.translate('Available Balance')}}
+                    <span *ngIf="util.cside == 'left'"> {{util.currecny}} {{balance}} </span>
+                    <span *ngIf="util.cside == 'right'"> {{balance}} {{util.currecny}} </span>
+                  </div>
+
+                </div>
+
+                <div class="bg-white px-3 py-2">
+                  <p class="ff-bold small">{{util.translate('Bill Details')}}</p>
+                  <p class="mb-1"> {{util.translate('Service Total')}}
+                    <span class="float-right text-dark" *ngIf="util.currencySide == 'left'">{{util.currencySymbol}}
+                      {{productCart.totalPrice}}</span>
+                    <span class="float-right text-dark" *ngIf="util.currencySide == 'right'">{{productCart.totalPrice}}
+                      {{util.currencySymbol}}</span>
+                  </p>
+                  <p class="mb-1"> {{util.translate('Total Discount')}}
+                    <span class="float-right text-danger" *ngIf="util.currencySide == 'left'">{{util.currencySymbol}}
+                      -{{productCart.discount}}</span>
+                    <span class="float-right text-danger" *ngIf="util.currencySide == 'right'">-{{productCart.discount}}
+                      {{util.currencySymbol}}</span>
+                  </p>
+                  <p class="mb-1"> {{util.translate('Taxes and Charges')}}
+                    <span class="float-right text-dark" *ngIf="util.currencySide == 'left'">{{util.currencySymbol}}
+                      {{productCart.orderTax}}</span>
+                    <span class="float-right text-dark" *ngIf="util.currencySide == 'right'">{{productCart.orderTax}}
+                      {{util.currencySymbol}}</span>
+                  </p>
+                  <p class="mb-1"> {{util.translate('Distance Charge')}}
+                    <span class="float-right text-dark" *ngIf="util.currencySide == 'left'">{{util.currencySymbol}}
+                      {{productCart.deliveryCharge}}</span>
+                    <span class="float-right text-dark"
+                      *ngIf="util.currencySide == 'right'">{{productCart.deliveryCharge}}
+                      {{util.currencySymbol}}</span>
+                  </p>
+                </div>
+
+                <div class="p-3 border-top">
+                  <h6 class="m-0 ff-medium h5">{{util.translate('To Pay')}}
+                    <span class="float-right ff-medium h5 f-primary"
+                      *ngIf="util.currencySide == 'left'">{{util.currencySymbol}}
+                      {{productCart.grandTotal}}</span>
+                    <span class="float-right ff-medium h5 f-primary"
+                      *ngIf="util.currencySide == 'right'">{{productCart.grandTotal}}
+                      {{util.currencySymbol}}</span>
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Delivery Address  modal -->
+
+<div mdbModal #deliveryAddress="mdbModal" class="modal fade center" id="deliveryAddressModalTop" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 999999;">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title w-100 ff-medium" *ngIf="isNewAddress == true">
+          {{util.translate('Add Delivery Address')}}</h5>
+        <h5 class="modal-title w-100 ff-medium" *ngIf="isNewAddress == false">
+          {{util.translate('Update Delivery Address')}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="deliveryAddress.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="form34" class="form-control" mdbInput [(ngModel)]="house"
+            [ngModelOptions]="{standalone: true}">
+          <label for="form34">{{util.translate('House / Flat NO')}}</label>
+        </div>
+        <div class="md-form mb-5">
+          <input type="text" id="form34" class="form-control" mdbInput [(ngModel)]="address"
+            [ngModelOptions]="{standalone: true}">
+          <label for="form34">{{util.translate('Address')}}</label>
+        </div>
+        <div class="md-form mb-5">
+          <input type="text" id="form29" class="form-control" mdbInput [(ngModel)]="landmark"
+            [ngModelOptions]="{standalone: true}">
+          <label for="form29">{{util.translate('Landmark')}}</label>
+        </div>
+        <div class="md-form mb-5">
+          <input type="text" id="form32" class="form-control" mdbInput [(ngModel)]="zipcode"
+            [ngModelOptions]="{standalone: true}">
+          <label for="form32">{{util.translate('Pincode')}}</label>
+        </div>
+        <div class="md-form">
+          <select class="custom-select" [(ngModel)]="title">
+            <option value="0" selected>{{util.translate('Home')}} </option>
+            <option value="1">{{util.translate('Office')}} </option>
+            <option value="2">{{util.translate('Other')}} </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="light" class="waves-light btn-color text-dark" mdbWavesEffect
+          (click)="deliveryAddress.hide()">{{util.translate('Cancel')}}</button>
+        <button mdbBtn class="waves-light btn-color text-white" *ngIf="isNewAddress == true"
+          (click)="getLatLngFromAddress()" mdbWavesEffect>{{util.translate('Add')}}</button>
+        <button mdbBtn class="waves-light btn-color text-white" *ngIf="isNewAddress == false"
+          (click)="getLatLngFromAddress()" mdbWavesEffect>{{util.translate('Update')}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #couponModal="mdbModal" class="modal fade right" id="couponModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 999999;">
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h6 class="modal-title w-100 ff-medium">{{util.translate('Available Coupons')}}</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="couponModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let item of offersList">
+          <div class="border p-3">
+            <p> <span class="ff-bold h6">{{item.name}}</span><br> <span
+                class="text-muted pt-2">{{item.short_descriptions}} </span> </p>
+
+            <div class="outline-btn" (click)="selectedOffers(item)">
+              {{util.translate('Claim Coupon')}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="overflow-y: auto" mdbModal #successModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true" style="z-index: 999999;">
+  <div class="modal-dialog modal-notify modal-success modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h6 class="modal-title w-100 ff-medium text-white ">{{util.translate('Order Success')}}</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="successModal.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center confirm-modal">
+          <img src="assets/images/logo.png" alt="" style="height: 100px;width:100px;">
+          <h6 class="confirm-text mt-2">{{util.translate('Thank You! for your order')}}</h6>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn color="success" outline="true" class="waves-effect" mdbWavesEffect
+          (click)="onHome()">{{util.translate('Back To Home')}}</a>
+        <a type="button" mdbBtn color="success" class="waves-effect" mdbWavesEffect (click)="onOrderHistory()">
+          {{util.translate('Track My Order')}}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #addCardModal="mdbModal" class="modal fade center" id="addCardModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 999999;">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title w-100 ff-medium">{{util.translate('Add New Card')}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="addCardModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="md-form">
+            <input id="cnum" [(ngModel)]="cardNumber" class="form-control" type="tel" autocomplete="cc-number" ccNumber
+              [ngModelOptions]="{standalone: true}" mdbInput>
+            <label for="cnum"> {{util.translate('Card Number')}} </label>
+          </div>
+          <div class="md-form">
+            <input id="cvc" [(ngModel)]="cvv" class="form-control" type="tel" autocomplete="off" ccCvc
+              [ngModelOptions]="{standalone: true}" mdbInput>
+            <label for="cvc">{{util.translate('CVC')}} </label>
+          </div>
+          <div class="md-form">
+            <input id="date" [(ngModel)]="expiryDate" class="form-control" type="date" autocomplete="cc-exp" ccExp
+              [ngModelOptions]="{standalone: true}" mdbInput>
+            <label for="date">{{util.translate('Expire Date')}} </label>
+          </div>
+          <div class="md-form">
+            <input type="text" id="cname" class="form-control" [(ngModel)]="cardHolderName"
+              [ngModelOptions]="{standalone: true}" mdbInput>
+            <label for="cname">{{util.translate('Card Holder Name')}} </label>
+          </div>
+          <div class="md-form">
+            <input type="email" id="email" class="form-control" [(ngModel)]="cardEmail"
+              [ngModelOptions]="{standalone: true}" mdbInput>
+            <label for="email">{{util.translate('Email')}} </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn class="waves-light btn-color text-white" mdbWavesEffect
+          (click)="submitData()">{{util.translate('Add New Card')}}
+        </a>
+        <a type="button" mdbBtn color="light" class="waves-light shadow-none btn-color text-dark" mdbWavesEffect
+          data-dismiss="modal" (click)="addCardModal.hide()">{{util.translate('Cancel')}} </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- stripe list -->
+<div style="overflow-y: auto" mdbModal #stripeModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true" style="z-index: 999999;">
+  <div class="modal-dialog modal-notify modal-warning modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">{{util.translate('Pay With Stripe')}}</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="stripeModal.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="custom-control custom-radio del-type mb-4" *ngFor="let item of stripeCardList">
+          <input type="radio" class="custom-control-input" name="defaultExampleRadios" mdbInput [id]="item.id"
+            [checked]="item.id == selectedCard ? true : false" (input)="saveCard(item.id)">
+          <label class="custom-control-label" [for]="item.id"> **** **** **** {{item.last4}} <br>
+            {{item.exp_month}}/{{item.exp_year}}
+          </label>
+
+        </div>
+
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn color="warning" outline="true" class="waves-effect" mdbWavesEffect
+          (click)="stripeModal.hide()">{{util.translate('Close')}}</a>
+        <a type="button" mdbBtn color="warning" class="waves-effect" (click)="addNewCard()" mdbWavesEffect>
+          {{util.translate('Add New Card')}}</a>
+        <a type="button" mdbBtn color="warning" class="waves-effect" (click)="createPayment()" mdbWavesEffect>
+          {{util.translate('Payment')}}
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div mdbModal #payPalModal="mdbModal" class="modal fade center" id="frameModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 99999;">
+  <div class="modal-dialog modal-notify modal-danger modal-dialog-scrollable" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading lead" style="text-align: center;"> {{util.translate('Pay with PayPal')}} </p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="payPalModal.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+      </div>
+
+
+    </div>
+    <!--/.Content-->
+  </div>
+</div>

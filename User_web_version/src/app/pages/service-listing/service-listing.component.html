@@ -1,0 +1,241 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<div class="container">
+  <h5 class="ff-medium mt-3" *ngIf="categoryCalled == true">{{util.translate('Categories')}}</h5>
+
+  <div *ngIf="categoryCalled == false">
+    <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'150px'}">
+    </ngx-skeleton-loader>
+  </div>
+
+  <div class="flexed" *ngIf="categoryCalled == false">
+    <div *ngFor="let item of  [1,2,3,4,5,6,7,8,9,10];">
+      <ngx-skeleton-loader appearance="circle" [theme]="{ 'border-radius': '50%', height: '120px',width:'120px'}">
+      </ngx-skeleton-loader>
+    </div>
+  </div>
+
+  <div class="slider_row" *ngIf="categoryCalled == true">
+    <div class="container" style="width: 100%;" *ngIf="categoryList?.length">
+      <carousel [cellWidth]="120" [height]="140" [autoplay]="true" style="z-index: unset;">
+        <div class="carousel-cell" *ngFor="let item of categoryList" (click)="onCateId(item.id,item.name)">
+          <div class="slider_back_cate bg_image "
+            [ngStyle]="{'background-image':'url('+api.mediaURL+item.cover+'),url(assets/placeholder.jpg)'}">
+          </div>
+          <label class="cate_name">{{ (item.name.length>25)? (item.name | slice:0:25)+'..':(item.name) }} </label>
+        </div>
+      </carousel>
+    </div>
+  </div>
+
+  <!-- Salons -->
+  <div class="d-flex align-items-center mt-3" *ngIf="apiCalled == true">
+    <h5 class="ff-medium"> {{util.translate("Top")}} {{cateName}} {{util.translate("Salons")}} </h5>
+    <!-- <div class="m-0 text-center ml-auto">
+      <a data-toggle="modal" data-target="#exampleModal" class="btn rounded px-3 py-2 m-0 mb-2 text-muted bg-white mr-2"
+        (click)="filterModal.show()">
+        <mdb-icon fas icon="filter"></mdb-icon>Filter
+      </a>
+    </div> -->
+  </div>
+
+  <div *ngIf="apiCalled == false">
+    <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'150px'}">
+    </ngx-skeleton-loader>
+  </div>
+
+  <div class="col-lg-12" *ngIf="apiCalled == false">
+    <div class="row product_div">
+      <div class="pro_col col-lg-4 col-sm-12 col-md-6 col-xs-12" *ngFor="let item of [1,2,3,5,6]">
+        <ngx-skeleton-loader appearance="circle" [theme]="{ 'border-radius': '5px', height: '150px',width:'100%'}">
+        </ngx-skeleton-loader>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="apiCalled == true">
+    <div class="col-6 col-md-4 col-lg-3 my-2 px-2" *ngFor="let item of salon">
+      <div class="px-0 rounded overflow-hidden shadow-sm animate border">
+        <a class="text-dark" (click)="onSalon(item.uid,item.name)">
+          <div class="service-list text-center pb-2">
+            <div
+              [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.cover +'),url(assets/images/placeholder.png)'}"
+              class="bg-img mb-3 "></div>
+            <h6 class="text-black ff-medium px-2 text-overflow head-text">{{item.name}}</h6>
+            <div style="font-size: 12px;">
+              <span *ngFor="let cates of item.categories;let j = index;"> {{cates.name}} <span
+                  *ngIf="(item.categories.length - 1) != j">,</span> </span>
+            </div>
+
+            <div class="d-flex justify-content-center align-item-center mb-2">
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 1 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 2 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 3 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 4 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 5 ? 'orange':'grey'}">
+              </mdb-icon>
+              <h6 class="text-muted ff-medium pl-2 rf-6 m-0 rf-lg-1">{{item.total_rating}}</h6>
+            </div>
+
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Salons -->
+
+  <!-- Individual -->
+  <div class="d-flex align-items-center mt-3" *ngIf="apiCalled == true">
+    <h5 class="ff-medium"> {{util.translate("Top")}} {{cateName}} {{util.translate("Individuals")}} </h5>
+    <!-- <div class="m-0 text-center ml-auto">
+      <a data-toggle="modal" data-target="#exampleModal" class="btn rounded px-3 py-2 m-0 mb-2 text-muted bg-white mr-2"
+        (click)="filterModal.show()">
+        <mdb-icon fas icon="filter"></mdb-icon>Filter
+      </a>
+    </div> -->
+  </div>
+
+  <div *ngIf="apiCalled == false">
+    <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'150px'}">
+    </ngx-skeleton-loader>
+  </div>
+
+  <div class="col-lg-12" *ngIf="apiCalled == false">
+    <div class="row product_div">
+      <div class="pro_col col-lg-4 col-sm-12 col-md-6 col-xs-12" *ngFor="let item of [1,2,3,5,6]">
+        <ngx-skeleton-loader appearance="circle" [theme]="{ 'border-radius': '5px', height: '150px',width:'100%'}">
+        </ngx-skeleton-loader>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="apiCalled == true">
+    <div class="col-6 col-md-4 col-lg-3 my-2 px-2" *ngFor="let item of freelancerList">
+      <div class="px-0 rounded overflow-hidden shadow-sm animate border">
+        <a class="text-dark" (click)="onFreelancerDetail(item.uid,item.userInfo.first_name +' '+
+        item.userInfo.last_name)">
+          <div class="service-list text-center pb-2">
+            <div
+              [ngStyle]="{'background-image': 'url('+ api.mediaURL + item.userInfo.cover +'),url(assets/images/placeholder.png)'}"
+              class="bg-img mb-3 "></div>
+            <h6 class="text-black ff-medium px-2 text-overflow head-text">{{item.userInfo.first_name +' '+
+              item.userInfo.last_name}}</h6>
+            <div style="font-size: 12px;">
+              <span *ngFor="let cates of item.categories;let j = index;"> {{cates.name}} <span
+                  *ngIf="(item.categories.length - 1) != j">,</span> </span>
+            </div>
+
+            <div class="d-flex justify-content-center align-item-center mb-2">
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 1 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 2 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 3 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 4 ? 'orange':'grey'}">
+              </mdb-icon>
+              <mdb-icon fas icon="star" size="sm" [ngStyle]="{color: item.rating >= 5 ? 'orange':'grey'}">
+              </mdb-icon>
+              <h6 class="text-muted ff-medium pl-2 rf-6 m-0 rf-lg-1">{{item.total_rating}}</h6>
+            </div>
+
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Individual -->
+
+  <div class="no_data" *ngIf="haveData ==false">
+    <div class="empty" [ngStyle]="{'background-image':'url(assets/nodata.jpg)'}"></div>
+    <p> {{util.translate('Opps.. nothing found')}}</p>
+  </div>
+</div>
+
+<!-- <div mdbModal #filterModal="mdbModal" class="modal fade right" id="filterModalModalTop" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 999999;">
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title w-100 ff-medium">{{util.translate('Filter & Sort')}} </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="filterModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="filter">
+            <div class="p-2 my-2 bg-light border-bottom">
+              <h6 class="m-0 pl-2 ff-medium">{{util.translate('SORT BY')}}</h6>
+            </div>
+            <div class="custom-control custom-radio py-2">
+              <input type="radio" class="custom-control-input" id="r1" name="filter" mdbInput>
+              <label class="custom-control-label" for="r1">Top Rated</label>
+            </div>
+            <div class="custom-control custom-radio py-2">
+              <input type="radio" class="custom-control-input" id="r2" name="filter" checked mdbInput>
+              <label class="custom-control-label" for="r2">Cost Low to High</label>
+            </div>
+
+            <div class="custom-control custom-radio py-2">
+              <input type="radio" class="custom-control-input" id="r3" name="filter" mdbInput>
+              <label class="custom-control-label" for="r3">Cost High to Low</label>
+            </div>
+            <div class="custom-control custom-radio py-2">
+              <input type="radio" class="custom-control-input" id="r4" name="filter" mdbInput>
+              <label class="custom-control-label" for="r4">Most Popular</label>
+            </div>
+            <div class="p-2 my-2 bg-light border-bottom">
+              <h6 class="m-0 pl-2 ff-medium">FILTER</h6>
+            </div>
+            <div class="custom-control  custom-checkbox py-2">
+              <input type="checkbox" class="custom-control-input" id="c1" checked="">
+              <label class="custom-control-label w-100" for="c1">Open Slot</label>
+            </div>
+            <div class="custom-control  custom-checkbox py-2">
+              <input type="checkbox" class="custom-control-input" id="c2">
+              <label class="custom-control-label w-100" for="c2">COD available</label>
+            </div>
+            <div class="custom-control  custom-checkbox py-2">
+              <input type="checkbox" class="custom-control-input" id="c3">
+              <label class="custom-control-label w-100" for="c3">Cline bungch</label>
+            </div>
+            <div class="p-2 my-2 bg-light border-bottom">
+              <h6 class="m-0 pl-2 ff-medium">ADDITIONAL FILTERS</h6>
+            </div>
+            <div class="px-3 pt-3">
+              <input type="range" class="custom-range" min="0" max="100" name="">
+              <div class="form-row">
+                <div class="form-group col-6">
+                  <label>Min</label>
+                  <input class="form-control" placeholder="$0" type="number">
+                </div>
+                <div class="form-group text-right col-6">
+                  <label>Max</label>
+                  <input class="form-control" placeholder="$1,0000" type="number">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="light" class="waves-light btn-color text-dark" (click)="filterModal.hide()"
+          mdbWavesEffect>{{util.translate('Cancel')}}</button>
+        <button mdbBtn class="waves-light btn-color text-white" (click)="filterModal.hide()"
+          mdbWavesEffect>{{util.translate('Save')}}</button>
+      </div>
+    </div>
+  </div>
+</div> -->

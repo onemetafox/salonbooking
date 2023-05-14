@@ -1,0 +1,67 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<div class="container rest_container">
+  <div class="row">
+    <div class="col-12">
+      <label class="bold_lbl">{{util.translate('All Blogs')}}</label>
+    </div>
+    <div class="col-lg-12">
+      <div class="row product_div" *ngIf="list?.length">
+        <div class="pro_col col-lg-4 col-sm-12 col-md-6 col-xs-12" *ngFor="let item of list"
+          (click)="goToBlogDetail(item)">
+          <div class="pro_div hoverable">
+            <div class="rest_img bg_image" [style.backgroundImage]="'url('+ api.mediaURL+item.cover +')'">
+              <div class="overlay">
+                <label class="date">{{getDate(item.published)}}</label>
+                <label class="month">{{getMonth(item.published)}}</label>
+              </div>
+            </div>
+            <div class="content_div">
+              <label class="pro_name">{{ (item.title.length>20)? (item.title | slice:0:20)+'..':(item.title) }}</label>
+              <label class="addr" [innerHTML]="getContent(item)">
+
+              </label>
+
+              <div class="service_flex">
+                <label>{{util.translate('Read More')}}</label>
+                <mdb-icon fas icon="arrow-right"></mdb-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row product_div" *ngIf="apiCalled == false">
+        <div class="pro_col col-lg-4 col-sm-12 col-md-6 col-xs-12" *ngFor="let item of [1,2,3,4,5,6,7,8]">
+          <div class="pro_div hoverable">
+            <div class="rest_img bg_image">
+              <ngx-skeleton-loader appearance="circle" [theme]="{ 'border-radius': '5px', height: '150px',width:'90%'}">
+              </ngx-skeleton-loader>
+            </div>
+            <div class="content_div">
+              <label class="pro_name">
+                <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'150px'}">
+                </ngx-skeleton-loader>
+              </label>
+              <label class="addr">
+                <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'120px'}">
+                </ngx-skeleton-loader>
+                <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}"> </ngx-skeleton-loader>
+                <ngx-skeleton-loader appearance="line" [theme]="{  height: '20px',width:'70px'}"> </ngx-skeleton-loader>
+              </label>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

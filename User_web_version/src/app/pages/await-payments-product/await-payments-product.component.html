@@ -1,0 +1,57 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<div style="overflow-y: auto" mdbModal #successModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myBasicModalLabel" aria-hidden="true" style="z-index: 999999;">
+  <div class="modal-dialog modal-notify modal-success modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h6 class="modal-title w-100 ff-medium text-white ">{{util.translate('Order Success')}} </h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="successModal.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center confirm-modal">
+          <img src="assets/images/logo.png" alt="" style="height: 100px;width:100px;">
+          <h6 class="confirm-bold mt-3">{{util.translate('Thank You! for your order')}} </h6>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <a type="button" mdbBtn color="success" outline="true" class="waves-effect" mdbWavesEffect
+          (click)="onHome()">{{util.translate('Back To Home')}} </a>
+        <a type="button" mdbBtn color="success" class="waves-effect" mdbWavesEffect (click)="onOrderHistory()">
+          {{util.translate('Track My Order')}}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="center_item" *ngIf="payClick == true">
+    <p *ngIf="confirmed == false">{{util.translate('Waiting for payment confirmations')}}</p>
+    <p *ngIf="confirmed == true">{{util.translate('Payment Confirmed')}}</p>
+    <div *ngIf="confirmed == false"
+      style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+      <div class="spinner-border text-success" role="status">
+        <span class="sr-only">{{util.translate('Loading...')}}</span>
+      </div>
+    </div>
+    <div class="success-animation" *ngIf="confirmed == true">
+      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+      </svg>
+    </div>
+  </div>
+  <div class="center_item" *ngIf="payClick == false">
+    <button type="button" mdbBtn color="success" mdbWavesEffect (click)="openBrowser()">
+      {{util.translate('Pay Now')}}
+    </button>
+  </div>
+</div>

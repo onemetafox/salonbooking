@@ -1,0 +1,111 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<header class="main_header">
+  <div class="container">
+    <div class="header_items" *ngIf="headerMode == false">
+      <div class="brand_items">
+        <a class="navbar-brand" (click)="goToHome()">
+          <img src="assets/icon.png" class="logo_img">
+        </a>
+        <label class="state_lbl" (click)="util.publishModalPopup('location')"> {{getAddress()}} <mdb-icon fas
+            icon="angle-down">
+          </mdb-icon>
+        </label>
+      </div>
+      <div class="otherLinks">
+        <a class="nav-link waves-light" mdbWavesEffect (click)="goToHome()">
+          <label [class.active]="activeTab == 'home'"> {{util.translate('Home')}} </label>
+        </a>
+
+        <a class="nav-link waves-light" mdbWavesEffect style="position: relative;overflow: visible;"
+          (click)="goToShop()">
+          <label [class.active]="activeTab == 'shop'"> {{util.translate('Shop')}} </label>
+          <span *ngIf="cart.cart?.length"
+            style="position: absolute; line-height: 10px; background: #0b19df;color: white; border-radius: 50%; padding: 5px; top: 0px; right: 5px; font-size: 15px; height: 20px;  text-align: center;">
+            {{cart.cart.length}} </span>
+        </a>
+
+        <a class="nav-link waves-light" mdbWavesEffect (click)="util.publishModalPopup('login')"
+          *ngIf="haveSigned() ==false">
+          <label [class.active]="activeTab == 'account'">{{util.translate('Login')}} </label>
+        </a>
+
+        <a class="nav-link waves-light" mdbWavesEffect (click)="util.publishModalPopup('register')"
+          *ngIf="haveSigned() ==false">
+          <label [class.active]="activeTab == 'account'">{{util.translate('Signup')}}</label>
+        </a>
+
+        <a class="nav-link waves-light" mdbWavesEffect (click)="goToHelp();" *ngIf="haveSigned() == false">
+          <label [class.active]="activeTab == 'help'">{{util.translate('Help')}} </label>
+        </a>
+
+        <a class="nav-link waves-light" mdbWavesEffect (click)="goToFaqs();" *ngIf="haveSigned() == false">
+          <label [class.active]="activeTab == 'faq'">{{util.translate('FAQs')}} </label>
+        </a>
+
+        <div dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+            {{selectedLanguage}} <span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="changeLanguage(item)"
+              *ngFor="let item of util.allLanguages"> {{item.name}}
+            </a>
+          </div>
+        </div>
+        <div class="nav-item avatar dropdown" dropdown *ngIf="haveSigned()">
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+            <img [src]="util.userInfo && util.userInfo.cover  ?  api.mediaURL + util.userInfo.cover:''"
+              onError="this.src='assets/icon.png'" alt="Profile" class="img-fluid rounded-circle z-depth-0 avtar"></a>
+          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect
+              (click)="goToSettings('profile')">{{util.translate('Profile')}}</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect
+              (click)="goToSettings('address')">{{util.translate('Address')}}</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect
+              (click)="goToSettings('appointment')">{{util.translate('Appointment')}}</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect
+              (click)="goToSettings('product-order')">{{util.translate('Orders')}}</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="goToHelp()">{{util.translate('Help')}}</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="goToFaqs()">{{util.translate('FAQs')}}</a>
+            <div class="divider dropdown-divider"></div>
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()">{{util.translate('Log out')}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filterItems" *ngIf="headerMode == true">
+      <div class="allItems">
+        <label class="totalRest"> {{totalRest}} {{util.translate('Select')}} {{getAddress()}}
+        </label>
+        <div class="filter_btns">
+          <a class="nav-link waves-light" mdbWavesEffect>
+            <label [class.active]="activeFilter == 0" (click)="addFilter(0)">{{util.translate('Rating 4.0+')}}</label>
+          </a>
+
+          <a class="nav-link waves-light" mdbWavesEffect>
+            <label [class.active]="activeFilter == 1" (click)="addFilter(1)">
+              {{util.translate('Fastest Delivery')}}</label>
+          </a>
+
+          <a class="nav-link waves-light" mdbWavesEffect>
+            <label [class.active]="activeFilter == 2" (click)="addFilter(2)">{{util.translate('Cost')}}</label>
+          </a>
+
+          <a class="nav-link waves-light" mdbWavesEffect>
+            <label [class.active]="activeFilter == 3" (click)="addFilter(3)">{{util.translate('A-Z')}}</label>
+          </a>
+
+          <a class="nav-link waves-light" mdbWavesEffect>
+            <label [class.active]="activeFilter == 4" (click)="addFilter(4)">{{util.translate('Z-A')}}</label>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

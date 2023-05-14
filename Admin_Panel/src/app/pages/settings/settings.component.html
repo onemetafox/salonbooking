@@ -1,0 +1,463 @@
+<!-- 
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+ -->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    {{util.translate('Settings')}}
+                </div>
+                <div class="card-body">
+                    <div>
+                        <p style="margin:10px 0px;font-weight: bold;">{{util.translate('Basic Informations')}}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('App Name')}} <span style="color: red;">*</span> </label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="name" [placeholder]="util.translate('App Name')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Contact No')}} <span style="color: red;">*</span> </label>
+                                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="mobile" [placeholder]="util.translate('Contact No')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Email ID')}} <span style="color: red;">*</span> </label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="email" [placeholder]="util.translate('Email ID')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Address')}} <span style="color: red;">*</span> </label>
+                                <input type="text" [(ngModel)]="address" class="form-control"
+                                    [placeholder]="util.translate('Address')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('City')}} <span style="color: red;">*</span> </label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="city" [placeholder]="util.translate('City')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('State')}} <span style="color: red;">*</span> </label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="state" [placeholder]="util.translate('State')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('ZIP')}} <span style="color: red;">*</span> </label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="zip" [placeholder]="util.translate('ZIP')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Country Name')}} <span style="color: red;">*</span> </label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="country" [placeholder]="util.translate('Country Name')">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Allow Distance')}} <span style="color: red;">*</span> </label>
+                                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="allowDistance" [placeholder]="util.translate('Allow Distance')">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Default City')}} <span style="color: red;">*</span> </label>
+                                <select class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="default_city_id">
+                                    <option [value]="item.id" *ngFor="let item of cities">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Default ZIP')}} <span style="color: red;">*</span> </label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="default_delivery_zip" [placeholder]="util.translate('Default ZIP')">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Delivery Charge')}} <span style="color: red;">*</span> </label>
+                                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="delivery_charge" [placeholder]="util.translate('Delivery Charge')">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Tax Charge')}} <span style="color: red;">*</span> </label>
+                                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="tax" [placeholder]="util.translate('Tax Charge')">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Delivery Type')}} <span style="color: red;">*</span> </label>
+                                <select class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="delivery_type">
+                                    <option [value]="0">{{util.translate('Fixed')}}</option>
+                                    <option [value]="1">{{util.translate('KM')}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Have Shop')}} <span style="color: red;">*</span> </label>
+                                <select class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="have_shop">
+                                    <option [value]="0">{{util.translate('No')}}</option>
+                                    <option [value]="1">{{util.translate('Yes')}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Search Result Kind')}} <span style="color: red;">*</span>
+                                </label>
+                                <select class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="searchResultKind">
+                                    <option [value]="0">{{util.translate('KM')}}</option>
+                                    <option [value]="1">{{util.translate('Miles')}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Search Radius')}} <span style="color: red;">*</span> </label>
+                                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="search_radius" [placeholder]="util.translate('Search Radius')">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <p style="margin:10px 0px;font-weight: bold;">{{util.translate('App Settings')}}</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Currency Symbol')}} <span style="color: red;">*</span> </label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="currencySymbol" [placeholder]="util.translate('Currency Symbol')">
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Currency Side')}} <span style="color: red;">*</span> </label>
+                                <select class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="currencySide">
+                                    <option value="left">{{util.translate('Left')}}</option>
+                                    <option value="right">{{util.translate('Right')}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Currency Code')}} <span style="color: red;">*</span> </label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="currencyCode" [placeholder]="util.translate('Currency Code')">
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('App Direction')}} <span style="color: red;">*</span> </label>
+                                <select class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="appDirection">
+                                    <option value="lrt">{{util.translate('LTR')}} </option>
+                                    <option value="rtl"> {{util.translate('RTL')}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('SMS Gateway')}} <span style="color: red;">*</span> </label>
+                                <select class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="sms_name">
+                                    <option value="0">{{util.translate('Twilio')}}</option>
+                                    <option value="1">{{util.translate('MSG91')}}</option>
+                                    <option value="2">{{util.translate('Firebase')}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row" *ngIf="sms_name =='0'">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>{{util.translate('Twilio SID')}} <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="twilloCreds.sid" [placeholder]="util.translate('Twilio SID')">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>{{util.translate('Twilio AUTH TOKEN')}} <span
+                                                style="color: red;">*</span> </label>
+                                        <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="twilloCreds.token"
+                                            [placeholder]="util.translate('Twilio AUTH TOKEN')">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>{{util.translate('Twilio FROM NUMBER')}} <span
+                                                style="color: red;">*</span> </label>
+                                        <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="twilloCreds.from"
+                                            [placeholder]="util.translate('Twilio FROM NUMBER')">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="sms_name =='1'">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>{{util.translate('MSG91 AUTH KEY')}} <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="msgCreds.key" [placeholder]="util.translate('MSG91 AUTH KEY')">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>{{util.translate('MSG91 SENDER ID')}} <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="msgCreds.sender"
+                                            [placeholder]="util.translate('MSG91 SENDER ID')">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" *ngIf="sms_name == '2'">
+                                <div class="col-sm-12">
+                                    {{util.translate("Please don't forgot to add firebase creds to")}}
+                                    api/resources/views/fireauth.blade.php
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('User Login')}} <span style="color: red;">*</span> </label>
+                                <select class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="user_login">
+                                    <option [value]="0">{{util.translate('Email & Password')}}</option>
+                                    <option [value]="1">{{util.translate('Phone & Password')}}</option>
+                                    <option [value]="2">{{util.translate('Phone & OTP')}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('User Verify With')}} <span style="color: red;">*</span>
+                                </label>
+                                <select class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="user_verify_with">
+                                    <option [value]="0">{{util.translate('Phone Verifications')}}</option>
+                                    <option [value]="1">{{util.translate('Email Verifications')}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('App Color')}} <span style="color: red;">*</span> </label>
+                                <input type="color" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="app_color" [placeholder]="util.translate('App Color')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('App Status')}} <span style="color: red;">*</span> </label>
+                                <select class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="app_status">
+                                    <option value="1">{{util.translate('Active')}}</option>
+                                    <option value="0">{{util.translate('Deactive')}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Default Country Code without +')}} <span
+                                        style="color: red;">*</span> </label>
+                                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="default_country_code"
+                                    [placeholder]="util.translate('Default Country Code')">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" (click)="openCountryModel()">
+                            <div class="form-group">
+                                <label>{{util.translate('Countries')}} </label>
+                                <div style="background: #f8f8f8; padding: 10px; border-radius: 5px;">
+                                    {{country_modal.length}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>{{util.translate('FCM Token')}} <span style="color: red;">*</span> </label>
+                                <textarea type="text" class="form-control" rows="3"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="fcm_token"
+                                    [placeholder]="util.translate('FCM Token')"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Logo')}} <span style="color: red;">*</span> </label>
+                                <input class="form-control file_ip" type="file"
+                                    (change)="preview_banner($event.target.files)" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="image_div">
+                                    <div class="image_box">
+                                        <img class="img-responsive" style="height: 80px;width: 80px; object-fit: cover;"
+                                            [src]="api.imageUrl + logo" onError="this.src='assets/img/dummy.jpeg'">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p style="margin:10px 0px;font-weight: bold;">{{util.translate('Social Informations')}}</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Facebook URL')}}</label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="social.facebook" [placeholder]="util.translate('Facebook URL')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Twitter URL')}}</label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="social.twitter" [placeholder]="util.translate('Twitter URL')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Instagram URL')}}</label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="social.instagram" [placeholder]="util.translate('Instagram URL')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('PlayStore URL')}}</label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="social.playstore" [placeholder]="util.translate('PlayStore URL')">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>{{util.translate('Appstore URL')}}</label>
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="social.appstore" [placeholder]="util.translate('Appstore URL')">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>{{util.translate('Website')}}</label>
+                                <textarea type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="social.website" [placeholder]="util.translate('Website')"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-success" *ngIf="isNew == true" (click)="createInfo()">
+                        {{util.translate('Create Info')}}</button>
+                    <button type="button" class="btn btn btn-primary" *ngIf="isNew == false" (click)="updateInfo()">
+                        {{util.translate('Update Info')}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{util.translate('Select Countries')}}</h4>
+                <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="overflow: scroll;height: 300px;">
+                <div *ngFor="let item of dummyLoad">
+                    <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                </div>
+                <input type="text" class="form-control form-control-lg" id="name"
+                    [placeholder]="util.translate('Search Country')" autocomplete="off"
+                    (input)="onSearchChange($event.target.value)">
+                <div style="display: flex; flex-direction: column; justify-content: flex-start;">
+                    <div class="form-check" *ngFor="let item of countries"
+                        style="display: flex; justify-content: flex-start; align-items: center;margin:5px 0px;">
+                        <input class="form-check-input" style="margin-top: 0px;" [(ngModel)]="item.isChecked"
+                            type="checkbox" [id]="item.country_name" (change)="changed()">
+                        <label class="form-check-label" [for]="item.country_name">
+                            +{{item.dialling_code}} {{item.country_name}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    (click)="largeModal.hide()">{{util.translate('Close')}}</button>
+                <button type="button" class="btn btn-primary" (click)="saveCountries()">
+                    {{util.translate('Save Changes')}}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,121 @@
+/*
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Ultimate Salon Full App Flutter
+  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2022-present initappz.
+*/
+label {
+  display: block;
+  margin: 0;
+}
+
+.back_image {
+  width: 100%;
+  height: 500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  .overlay {
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    position: relative;
+
+    .header_title {
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+      font-weight: bold;
+    }
+  }
+}
+
+.white_div {
+  width: 105%;
+  height: 100px;
+  background: white;
+  margin-top: -50px;
+  transform: rotate(-3deg);
+}
+
+.rest_container {
+  padding-top: 40px;
+
+  .bold_lbl {
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .product_div {
+    padding-bottom: 20px;
+
+    .pro_col {
+      padding: 0px 15px;
+      margin-top: 25px;
+
+      .pro_div {
+        background: #f3f3f3;
+        border: 2px solid lightgrey;
+
+        .rest_img {
+          width: 100%;
+          height: 230px;
+
+          .overlay {
+            height: 100px;
+            width: 90px;
+            background: rgba(0, 0, 0, 0.5);
+            padding-top: 10px;
+
+            .date {
+              color: white;
+              font-size: 40px;
+              text-align: center;
+              line-height: 35px;
+            }
+
+            .month {
+              color: white;
+              font-weight: bold;
+              font-size: 30px;
+              text-align: center;
+            }
+          }
+        }
+
+        .content_div {
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+
+          .pro_name {
+            font-size: 24px;
+          }
+
+          .addr {
+            margin-top: 10px;
+            font-size: 15px;
+            color: grey;
+          }
+
+          .service_flex {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+
+            label {
+              // font-weight: 600;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
