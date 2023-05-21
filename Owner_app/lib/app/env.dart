@@ -9,6 +9,5 @@
 class Environments {
   static const String appName = 'Ultimate Owner Salon & Shop';
   static const String companyName = 'Initappz';
-  static const String apiBaseURL =
-      'https://ultimate-salon-backend.bunchdevelopers.com/public/';
+  static const String apiBaseURL = 'http://192.168.107.110:8000/';
 }
