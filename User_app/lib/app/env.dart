@@ -8,9 +8,13 @@
 */
 class Environments {
   static const String appName = 'Ultimate Salon & Shop';
-  static const String companyName = 'Initappz';
-  static const String googleMapsKey = 'GOOGLE-MAPS-KEY';
-  static const String apiBaseURL =
-      'https://ultimate-salon-backend.bunchdevelopers.com/public/';
-  static const String websiteURL = 'https://ultimate-salon.bunchdevelopers.com';
+  static const String companyName = 'Cosonas';
+  static const String googleMapsKey = 'AIzaSyD_90YKmwxLQPkETXUJ4cU5o4QJRzP4y0A';
+  // static const String apiBaseURL = 'https://api.bunitas.com/public/';
+  // static const String websiteURL = 'https://bunitas.com';
+  static const String apiBaseURL = '127.0.0.1/';
+  static const String websiteURL = 'localhost';
+  //   static const String apiBaseURL =
+  //     'https://ultimate-salon-backend.bunchdevelopers.com/public/';
+  // static const String websiteURL = 'https://ultimate-salon.bunchdevelopers.com';
 }

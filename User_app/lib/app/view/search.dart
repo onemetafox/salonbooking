@@ -6,7 +6,7 @@
   terms found in the Website https://initappz.com/license
   Copyright and Good Faith Purchasers © 2023-present initappz.
 */
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide SearchController;
 import 'package:get/get.dart';
 import 'package:salon_user/app/controller/search_controller.dart';
 import 'package:salon_user/app/util/theme.dart';
